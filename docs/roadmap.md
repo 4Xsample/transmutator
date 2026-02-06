@@ -20,18 +20,25 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 *   [x] Parser de progrés FFmpeg real (duració via `ffprobe` + parsing `time=` de stderr).
 *   [x] Visualització d'ETA al label de progrés de la TUI.
 
-## Fase 2: Control i Robustesa (v0.5 - v0.7) ✅ COMPLETADA
+## Fase 2: Control, Robustesa i Experiència Visual (v0.5 - v0.7) ✅ COMPLETADA
 *   [x] Gestió de cues: Moure arxius amunt/avall (tecles `u`/`d`).
 *   [x] Implementació completa del botó de Pausa (SIGSTOP/SIGCONT via ProcessHandle).
 *   [x] Stop immediat: Kill subprocess (SIGKILL al grup de processos).
 *   [x] Sistema de logs detallat per al report final (recollida de resultats per fase).
 *   [x] Verificació d'espai en disc abans d'iniciar la fase d'importació i conversió.
 *   [x] Implementació de les fases Extract (rsync Torrent → TMP) i Load (rsync → Plex).
+*   [x] Llista dual amb gradient per-lletra: visualització del progrés de transferència caràcter a caràcter.
+*   [x] Barra segmentada 3 fases (IMPORTAR / CONVERTIR / ENVIAR) amb comptadors en temps real.
+*   [x] Barres de progrés per-arxiu integrades a la llista durant la fase Transform.
+*   [x] Animació hacker entre fases: terminal scrolling amb dades tècniques reals + cites de cinema.
+*   [x] Popup countdown modal amb resum de fitxers i compte enrere abans de cada fase.
+*   [x] Amplada dinàmica de columnes: adaptació automàtica a la mida del terminal.
+*   [x] Parsing de percentatge rsync en temps real per alimentar el gradient i la barra segmentada.
 
 ## Fase 3: Report i Poliment (v0.8 - v0.9)
 *   [ ] Pantalla final de Report: Quadre d'èxits (info curiosa) vs Quadre d'errors.
 *   [ ] Funció de guardat del report en fitxer `.txt` o `.md`.
-*   [ ] Poliment estètic "Pip-Boy": efectes visuals, scanlines, colors i sons (si s'escau).
+*   [ ] Efectes estètics CRT: scanlines, phosphor glow, sons (si s'escau).
 
 ## Fase 4: Versió Final (v1.0)
 *   [ ] Refactorització de codi i neteja de deute tècnic.
@@ -40,4 +47,4 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 
 ---
 *Última actualització: 06/02/2026.*  
-*Estat actual: Fase 2 completada - Pipeline complet (Extract/Transform/Load), control de processos (pausa/stop), gestió de cues i verificació d'espai.*
+*Estat actual: Fase 2 completada — Pipeline complet (Extract/Transform/Load), control de processos, TUI amb gradient per-lletra, animacions entre fases i amplada dinàmica.*

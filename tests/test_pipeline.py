@@ -3,7 +3,7 @@
 import os
 import time
 from pathlib import Path
-from typing import List
+from typing import List, Tuple
 
 import pytest
 
@@ -83,7 +83,7 @@ class TestPipelinePhase:
         assert p.error == "disk full"
 
 
-# ── ExtractPhase._extract_shutil ─────────────────────────────────────
+# ── ExtractPhase._shutil ────────────────────────────────────────────
 
 
 class TestExtractShutil:
@@ -92,7 +92,7 @@ class TestExtractShutil:
         src.mkdir(); dst.mkdir()
         (src / "movie.mkv").write_bytes(b"video")
 
-        result = ExtractPhase._extract_shutil(src, dst, None)
+        result = ExtractPhase._shutil(src, dst, "radarr", None)
 
         assert result.success
         assert result.files_transferred == 1
@@ -106,7 +106,7 @@ class TestExtractShutil:
         (src / "b").mkdir()
         (src / "b" / "song.flac").write_bytes(b"audio")
 
-        result = ExtractPhase._extract_shutil(src, dst, None)
+        result = ExtractPhase._shutil(src, dst, "radarr", None)
 
         assert result.success
         assert result.files_transferred == 2
@@ -123,7 +123,7 @@ class TestExtractShutil:
         st = (src / "f.mkv").stat()
         os.utime(dst / "f.mkv", (st.st_mtime + 1, st.st_mtime + 1))
 
-        result = ExtractPhase._extract_shutil(src, dst, None)
+        result = ExtractPhase._shutil(src, dst, "radarr", None)
         assert result.success
         assert result.files_transferred == 0
 
@@ -134,7 +134,7 @@ class TestExtractShutil:
         time.sleep(0.05)
         (src / "f.mkv").write_bytes(b"new")
 
-        result = ExtractPhase._extract_shutil(src, dst, None)
+        result = ExtractPhase._shutil(src, dst, "radarr", None)
         assert result.success
         assert result.files_transferred == 1
         assert (dst / "f.mkv").read_bytes() == b"new"
@@ -144,22 +144,28 @@ class TestExtractShutil:
         src.mkdir(); dst.mkdir()
         (src / "a.mkv").write_bytes(b"a")
 
-        msgs: List[str] = []
-        ExtractPhase._extract_shutil(src, dst, msgs.append)
+        events: List[Tuple[str, str, float]] = []
+        def cb(cat, fname, pct):
+            events.append((cat, fname, pct))
 
-        assert len(msgs) == 1
-        assert "Copiant:" in msgs[0]
+        ExtractPhase._shutil(src, dst, "radarr", cb)
+
+        # Expect start (0%) and done (100%) for one file
+        assert len(events) == 2
+        assert events[0][2] == 0.0
+        assert events[1][2] == 100.0
+        assert events[0][0] == "radarr"
 
     def test_empty_source(self, tmp_path):
         src, dst = tmp_path / "src", tmp_path / "dst"
         src.mkdir(); dst.mkdir()
 
-        result = ExtractPhase._extract_shutil(src, dst, None)
+        result = ExtractPhase._shutil(src, dst, "radarr", None)
         assert result.success
         assert result.files_transferred == 0
 
 
-# ── LoadPhase._load_shutil ───────────────────────────────────────────
+# ── LoadPhase._shutil ───────────────────────────────────────────────
 
 
 class TestLoadShutil:
@@ -170,7 +176,7 @@ class TestLoadShutil:
         (src / "sub").mkdir()
         (src / "sub" / "ep.mkv").write_bytes(b"ep")
 
-        result = LoadPhase._load_shutil(src, dst, None)
+        result = LoadPhase._shutil(src, dst, "radarr", None)
 
         assert result.success
         assert result.files_transferred == 2
@@ -185,17 +191,21 @@ class TestLoadShutil:
         src.mkdir(); dst.mkdir()
         (src / "song.mp3").write_bytes(b"audio")
 
-        msgs: List[str] = []
-        LoadPhase._load_shutil(src, dst, msgs.append)
+        events: List[Tuple[str, str, float]] = []
+        def cb(cat, fname, pct):
+            events.append((cat, fname, pct))
 
-        assert len(msgs) == 1
-        assert "Enviant:" in msgs[0]
+        LoadPhase._shutil(src, dst, "radarr", cb)
+
+        assert len(events) == 2
+        assert events[0][2] == 0.0
+        assert events[1][2] == 100.0
 
     def test_empty_source(self, tmp_path):
         src, dst = tmp_path / "src", tmp_path / "dst"
         src.mkdir(); dst.mkdir()
 
-        result = LoadPhase._load_shutil(src, dst, None)
+        result = LoadPhase._shutil(src, dst, "radarr", None)
         assert result.success
         assert result.files_transferred == 0
 
@@ -221,7 +231,7 @@ class TestExtractCategory:
 
         monkeypatch.setattr(Config, "get_torrent_path", lambda c: src)
         monkeypatch.setattr(Config, "get_tmp_path", lambda c: dst)
-        monkeypatch.setattr(ExtractPhase, "_rsync_available", staticmethod(lambda: False))
+        monkeypatch.setattr(ExtractPhase, "_rsync_ok", staticmethod(lambda: False))
 
         result = ExtractPhase.extract_category("radarr")
         assert result.success
@@ -255,7 +265,7 @@ class TestLoadCategory:
 
         monkeypatch.setattr(Config, "get_output_path", lambda c: out)
         monkeypatch.setattr(Config, "get_plex_path", lambda c: plex)
-        monkeypatch.setattr(LoadPhase, "_rsync_available", staticmethod(lambda: False))
+        monkeypatch.setattr(LoadPhase, "_rsync_ok", staticmethod(lambda: False))
 
         result = LoadPhase.load_category("radarr")
         assert result.success

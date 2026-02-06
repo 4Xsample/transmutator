@@ -9,10 +9,12 @@ Transmutator és un pipeline ETL (Extract, Transform, Load) dissenyat per a la g
 Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contingut de vídeo i àudio provinent de la suite ARR (Sonarr, Radarr, Lidarr) garantint la màxima compatibilitat amb clients lleugers (Apple TV HD) i protegint el seeding de torrents.
 
 ## 🚀 Característiques
-- **TUI Pip-Boy Style:** Interfície retro-futurista de terminal.
-- **Normalització Intelig·ligent:**
+- **TUI Pip-Boy Style:** Interfície retro-futurista amb gradient per-lletra, animacions hacker i barra de progrés segmentada.
+- **Pipeline complet ETL:** Extract (rsync des de torrents), Transform (HandBrake/FFmpeg), Load (rsync a Plex).
+- **Normalització Intel·ligent:**
   - Vídeo: Downscale a 1080p i prioritat a *Fast Decoding*.
   - Àudio: Conversió de Lossless a MP3 320kbps i còpia directa de Lossy.
+- **Control en temps real:** Pausa (SIGSTOP), reprèn (SIGCONT), stop immediat (SIGKILL).
 - **Integració qBittorrent:** Auto-tagging a categoria "processat" post-processament.
 - **Arquitectura Segura:** Processament en directori local (Staging) per protegir unitats de xarxa.
 
@@ -25,7 +27,14 @@ Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contin
 ## 📂 Estructura del Projecte
 - `docs/`: Documentació d'arquitectura i visió.
 - `src/`: Codi font de l'aplicació.
-- `tests/`: Proves unitàries.
+  - `app.py`: TUI principal (Textual).
+  - `widgets.py`: Widgets customs (DualColumnList, SegmentedBar, CountdownScreen).
+  - `hacker.py`: Animació terminal entre fases.
+  - `pipeline.py`: Fases Extract i Load (rsync/shutil).
+  - `converter.py`: Conversió de mèdia (HandBrake/FFmpeg) + ProcessHandle.
+  - `file_detector.py`: Detecció i classificació de fitxers.
+  - `config.py`: Configuració YAML.
+- `tests/`: Proves unitàries (70 tests).
 
 ## 🏃 Instal·lació i Ús
 
@@ -110,18 +119,23 @@ O directament: `python -m src.app`. Tancar amb **q**.
 - [x] Parser de progrés HandBrake robust (JSON `--json` + fallback text, threading)
 - [x] Parser de progrés FFmpeg real (duració via `ffprobe` + `time=` de stderr)
 
-### ✅ Fase 2 (v0.5) - Completada
+### ✅ Fase 2 (v0.5-0.7) - Completada
 - [x] Pipeline complet: Extract (rsync Torrent → TMP), Transform (conversió), Load (rsync → Plex)
 - [x] Pausa real: SIGSTOP/SIGCONT del subprocés (HandBrake/FFmpeg/rsync)
-- [x] Stop immediat: SIGKILL al grup de processos (no cal esperar l'arxiu actual)
+- [x] Stop immediat: SIGKILL al grup de processos
 - [x] Gestió de cues: moure arxius amunt/avall amb tecles `u`/`d`
 - [x] Verificació d'espai en disc abans d'Extract i Transform
-- [x] Recollida de resultats per al futur report (Fase 3)
+- [x] Llista dual amb gradient per-lletra per visualitzar transferències
+- [x] Barra segmentada 3 fases (IMPORTAR / CONVERTIR / ENVIAR)
+- [x] Barres de progrés per-arxiu durant Transform
+- [x] Animació hacker entre fases amb dades reals + cites de cinema
+- [x] Popup countdown modal amb resum i compte enrere
+- [x] Amplada dinàmica de columnes (s'adapta al terminal)
 
 ### ⚠️ Pendents (Fase 3+)
 - **Report final**: Pantalla de resum amb èxits vs errors (Fase 3).
 - **Guardar report**: Exportar a `.txt` o `.md` (Fase 3).
-- **Poliment estètic**: Scanlines, efectes CRT, sons (Fase 3).
+- **Efectes CRT**: Scanlines, phosphor glow (Fase 3).
 
 ### 📅 Properes Fases
 Veure `docs/roadmap.md` per al roadmap complet.

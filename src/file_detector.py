@@ -151,3 +151,17 @@ class FileDetector:
                 results[category] = files
         
         return results
+
+    @classmethod
+    def scan_torrent_sources(cls) -> Dict[str, List[MediaFile]]:
+        """Scan torrent source directories for all categories."""
+        results = {}
+
+        for category in Config.TORRENT_CATEGORIES.values():
+            src = Config.get_torrent_path(category)
+            if src.exists():
+                files = cls.scan_directory(src, category=category, recursive=True)
+                if files:
+                    results[category] = files
+
+        return results
