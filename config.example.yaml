@@ -1,0 +1,39 @@
+# Transmutator V2 - Configuració
+# Copia aquest fitxer a config.yaml i ajusta les rutes segons el teu sistema
+
+# Rutes base
+paths:
+  torrent_base: "/mnt/Torrent"
+  tmp_staging: "~/Videos/TMP"  # ~ s'expandeix a home
+  output_base: "~/Videos"
+  plex_destination: "/mnt/PlexMedia/Downloads"
+
+# Categories de torrents
+categories:
+  tv-sonarr: "tv-sonarr"
+  radarr: "radarr"
+  lidarr: "lidarr"
+
+# qBittorrent API
+qbittorrent:
+  url: "http://localhost:8080"
+  username: ""  # Deixa buit si no hi ha autenticació
+  password: ""  # Deixa buit si no hi ha autenticació
+  processed_category: "processat"
+
+# Configuració de vídeo
+video:
+  preset_movies: "4Xmovie"
+  preset_series: "4Xseries"
+  target_resolution: "1080p"
+
+# Configuració d'àudio
+audio:
+  target_bitrate: "320k"
+  target_format: "mp3"
+
+# Eines externes
+tools:
+  handbrake_cli: "HandBrakeCLI"
+  ffmpeg: "ffmpeg"
+  handbrake_presets_path: "~/.config/ghb/presets.json"

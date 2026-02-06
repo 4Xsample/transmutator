@@ -83,7 +83,10 @@ def test_file_detection():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "test":
+    if len(sys.argv) > 1 and sys.argv[1] in ("--tui", "-t"):
+        from .app import run_app
+        run_app()
+    elif len(sys.argv) > 1 and sys.argv[1] == "test":
         test_file_detection()
     else:
         validate_setup()

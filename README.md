@@ -1,5 +1,7 @@
 # Transmutator V2 ☢️
 
+**Repositori:** [github.com/4Xsample/transmutator](https://github.com/4Xsample/transmutator)
+
 Transmutator és un pipeline ETL (Extract, Transform, Load) dissenyat per a la gestió automatitzada de llibreries de mèdia en entorns Arch Linux amb Plex. 
 
 Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contingut de vídeo i àudio provinent de la suite ARR (Sonarr, Radarr, Lidarr) garantint la màxima compatibilitat amb clients lleugers (Apple TV HD) i protegint el seeding de torrents.
@@ -35,7 +37,7 @@ Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contin
 
 1. **Clonar el repositori:**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/4Xsample/transmutator.git
    cd transmutator
    ```
 
@@ -53,11 +55,19 @@ Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contin
    ```
 
 3. **Configurar les rutes:**
-   Edita `src/config.py` per ajustar les rutes segons el teu sistema:
-   - `TORRENT_BASE`: Directori base dels torrents
-   - `TMP_STAGING`: Directori temporal per staging
-   - `PLEX_DESTINATION`: Destí final per Plex
-   - `QBITTORRENT_URL`: URL del WebUI de qBittorrent
+   Copia `config.example.yaml` a `config.yaml` i ajusta les rutes segons el teu sistema:
+   ```bash
+   cp config.example.yaml config.yaml
+   # Edita config.yaml amb el teu editor preferit
+   ```
+   
+   Principals configuracions:
+   - `paths.torrent_base`: Directori base dels torrents
+   - `paths.tmp_staging`: Directori temporal per staging (pots usar `~` per home)
+   - `paths.plex_destination`: Destí final per Plex
+   - `qbittorrent.url`: URL del WebUI de qBittorrent
+   
+   Si no crees `config.yaml`, s'usaran els valors per defecte (compatibles amb l'arquitectura original).
 
 ### Validació de la Configuració
 
@@ -73,6 +83,14 @@ Per provar la detecció de fitxers:
 python -m src.main test
 ```
 
+Per obrir la **TUI** (interfície Pip-Boy / 4Xsample Industries):
+
+```bash
+python -m src.main --tui
+```
+
+O directament: `python -m src.app`. Tancar amb **q**.
+
 ## 📋 Estat del Projecte
 
 ### ✅ Fase 0 (v0.1) - Completada
@@ -82,10 +100,18 @@ python -m src.main test
 - [x] Lògica de conversió (HandBrake/FFmpeg)
 - [x] Integració qBittorrent API
 
-### 🚧 Fase 1 (v0.2-0.4) - En desenvolupament
-- [ ] TUI bàsica amb Textual (estil Pip-Boy)
-- [ ] Visualització de progrés en temps real
-- [ ] Llista scrollable de fitxers
+### 🚧 Fase 1 (v0.2-0.4) - En curs
+- [x] TUI bàsica amb Textual (estil Pip-Boy / 4Xsample Industries)
+- [x] Visualització de progrés en temps real (barra + arxiu actual)
+- [x] Llista de fitxers enllaçada a detecció i pipeline (Iniciar / Stop)
+- [x] Configuració YAML (`config.yaml`) amb valors per defecte
+- [x] Parser de progrés HandBrake (JSON + fallback text)
+
+### ⚠️ Problemes coneguts / Pendents
+- **Progrés HandBrake**: El parser JSON pot no funcionar amb totes les versions de HandBrakeCLI. Si la barra de progrés no es mou, cal verificar l'output real de HandBrake i ajustar el parser.
+- **Pausa**: Botó implementat però funcionalitat no completada (Fase 2).
+- **Stop**: Atura després de l'arxiu actual; aturada immediata (kill subprocess) pendent (Fase 2).
+- **Fase Extract/Load**: Només està implementada la fase Transform (conversió). Les fases Extract (còpia a TMP) i Load (enviament a Plex) queden per implementar.
 
 ### 📅 Properes Fases
 Veure `docs/roadmap.md` per al roadmap complet.

@@ -35,5 +35,6 @@ venv.bak/
 *.log
 report_*.txt
 config.json
+config.yaml  # User config (not committed)
 .vscode/
 .idea/

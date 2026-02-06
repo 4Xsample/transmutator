@@ -1,58 +1,93 @@
 """
 Configuration module for Transmutator V2.
 
-Initially uses hardcoded values, will be migrated to JSON/YAML later.
+Loads configuration from config.yaml if present, falls back to defaults.
 """
 
 import os
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Optional
+
+try:
+    import yaml
+    YAML_AVAILABLE = True
+except ImportError:
+    YAML_AVAILABLE = False
+
+
+def _expand_path(path_str: str) -> Path:
+    """Expand ~ and convert to Path."""
+    return Path(os.path.expanduser(path_str))
+
+
+def _load_config() -> Dict[str, Any]:
+    """Load configuration from YAML file or return empty dict."""
+    if not YAML_AVAILABLE:
+        return {}
+    
+    config_path = Path("config.yaml")
+    if not config_path.exists():
+        return {}
+    
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            return yaml.safe_load(f) or {}
+    except Exception:
+        return {}
+
+
+_CONFIG = _load_config()
 
 
 class Config:
-    """Configuration class with hardcoded paths and settings."""
+    """Configuration class that loads from YAML with defaults."""
     
-    # Paths - Hardcoded for now
-    TORRENT_BASE = Path("/mnt/Torrent")
-    TMP_STAGING = Path.home() / "Videos" / "TMP"
-    OUTPUT_BASE = Path.home() / "Videos"
-    PLEX_DESTINATION = Path("/mnt/PlexMedia/Downloads")
+    # Paths - Load from YAML or use defaults
+    _paths = _CONFIG.get("paths", {})
+    TORRENT_BASE = _expand_path(_paths.get("torrent_base", "/mnt/Torrent"))
+    TMP_STAGING = _expand_path(_paths.get("tmp_staging", "~/Videos/TMP"))
+    OUTPUT_BASE = _expand_path(_paths.get("output_base", "~/Videos"))
+    PLEX_DESTINATION = _expand_path(_paths.get("plex_destination", "/mnt/PlexMedia/Downloads"))
     
     # Category mappings
+    _categories = _CONFIG.get("categories", {})
     TORRENT_CATEGORIES = {
-        "tv-sonarr": "tv-sonarr",
-        "radarr": "radarr",
-        "lidarr": "lidarr",
+        "tv-sonarr": _categories.get("tv-sonarr", "tv-sonarr"),
+        "radarr": _categories.get("radarr", "radarr"),
+        "lidarr": _categories.get("lidarr", "lidarr"),
     }
     
-    # qBittorrent API settings (hardcoded for now)
-    QBITTORRENT_URL = "http://localhost:8080"
-    QBITTORRENT_USERNAME = ""  # Empty if no auth
-    QBITTORRENT_PASSWORD = ""  # Empty if no auth
+    # qBittorrent API settings
+    _qbt = _CONFIG.get("qbittorrent", {})
+    QBITTORRENT_URL = _qbt.get("url", "http://localhost:8080")
+    QBITTORRENT_USERNAME = _qbt.get("username", "")
+    QBITTORRENT_PASSWORD = _qbt.get("password", "")
     QBITTORRENT_API_KEY = ""  # Will be fetched on connection
-    
-    # Processing category name
-    PROCESSED_CATEGORY = "processat"
+    PROCESSED_CATEGORY = _qbt.get("processed_category", "processat")
     
     # Video settings
     VIDEO_EXTENSIONS = {".mkv", ".mp4", ".avi", ".mov", ".m4v", ".webm"}
-    VIDEO_PRESET_MOVIES = "4Xmovie"
-    VIDEO_PRESET_SERIES = "4Xseries"
-    VIDEO_TARGET_RESOLUTION = "1080p"
+    _video = _CONFIG.get("video", {})
+    VIDEO_PRESET_MOVIES = _video.get("preset_movies", "4Xmovie")
+    VIDEO_PRESET_SERIES = _video.get("preset_series", "4Xseries")
+    VIDEO_TARGET_RESOLUTION = _video.get("target_resolution", "1080p")
     
     # Audio settings
     AUDIO_EXTENSIONS = {".mp3", ".flac", ".wav", ".ogg", ".aiff", ".m4a", ".aac"}
     AUDIO_LOSSY_EXTENSIONS = {".mp3", ".aac", ".ogg", ".m4a"}
     AUDIO_LOSSLESS_EXTENSIONS = {".flac", ".wav", ".aiff"}
-    AUDIO_TARGET_BITRATE = "320k"
-    AUDIO_TARGET_FORMAT = "mp3"
+    _audio = _CONFIG.get("audio", {})
+    AUDIO_TARGET_BITRATE = _audio.get("target_bitrate", "320k")
+    AUDIO_TARGET_FORMAT = _audio.get("target_format", "mp3")
     
     # HandBrake settings
-    HANDBRAKE_CLI = "HandBrakeCLI"
-    HANDBRAKE_PRESETS_PATH = Path.home() / ".config" / "ghb" / "presets.json"
+    _tools = _CONFIG.get("tools", {})
+    HANDBRAKE_CLI = _tools.get("handbrake_cli", "HandBrakeCLI")
+    _presets_path = _tools.get("handbrake_presets_path", "~/.config/ghb/presets.json")
+    HANDBRAKE_PRESETS_PATH = _expand_path(_presets_path)
     
     # FFmpeg settings
-    FFMPEG_BIN = "ffmpeg"
+    FFMPEG_BIN = _tools.get("ffmpeg", "ffmpeg")
     
     @classmethod
     def get_torrent_path(cls, category: str) -> Path:

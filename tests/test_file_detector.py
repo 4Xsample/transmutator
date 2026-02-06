@@ -2,8 +2,14 @@
 Tests for file detection and classification.
 """
 
-import tempfile
+import sys
 from pathlib import Path
+
+# Allow running this test file directly (project root must be on path)
+_project_root = Path(__file__).resolve().parent.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 from src.file_detector import FileDetector, MediaType, MediaFile
 
 
@@ -35,3 +41,11 @@ def test_detect_category():
     assert FileDetector.detect_category(Path("/mnt/Torrent/tv-sonarr/episode.mkv")) == "tv-sonarr"
     assert FileDetector.detect_category(Path("/mnt/Torrent/radarr/movie.mp4")) == "radarr"
     assert FileDetector.detect_category(Path("/mnt/Torrent/lidarr/album.flac")) == "lidarr"
+
+
+if __name__ == "__main__":
+    for name, func in list(globals().items()):
+        if name.startswith("test_") and callable(func):
+            func()
+            print(f"  OK {name}")
+    print("Done.")

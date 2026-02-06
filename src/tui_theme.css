@@ -1,0 +1,107 @@
+/* Transmutator V2 - Pip-Boy / 4Xsample Industries theme
+   Paleta: docs/pipboy_theme_notes.md
+*/
+
+Screen {
+  background: #000900;
+}
+
+/* Capçalera tipus terminal */
+Header {
+  background: #000900;
+  color: #4AEF98;
+  height: 3;
+  dock: top;
+  padding: 0 1;
+}
+
+Header .header-title {
+  color: #4AEF98;
+  text-style: bold;
+}
+
+/* Contenidors i panells */
+#main-container {
+  background: #000900;
+  color: #4AEF98;
+  padding: 1 2;
+}
+
+/* Títol / branding */
+#branding {
+  color: #4AEF98;
+  text-style: bold;
+  padding: 0 0 1 0;
+}
+
+/* Llista de fitxers */
+#file-list {
+  background: #000900;
+  color: #4AEF98;
+  border: solid #4AEF98;
+  height: auto;
+  min-height: 10;
+  padding: 0 1;
+}
+
+/* Barra de progrés */
+ProgressBar {
+  color: #39FF14;
+  background: #001a00;
+  height: 1;
+  padding: 0 1;
+}
+
+ProgressBar .bar--complete {
+  background: #4AEF98;
+}
+
+/* Botons */
+Button {
+  background: #001a00;
+  color: #4AEF98;
+  border: solid #4AEF98;
+  padding: 0 2;
+}
+
+Button:hover {
+  background: #4AEF98;
+  color: #000900;
+}
+
+Button.primary {
+  color: #39FF14;
+  border: solid #39FF14;
+}
+
+Button.error {
+  color: #D41227;
+  border: solid #D41227;
+}
+
+Button.error:hover {
+  background: #D41227;
+  color: #000900;
+}
+
+/* Estats: èxit, advertència, error */
+.success {
+  color: #39FF14;
+}
+
+.warning {
+  color: #FFFF33;
+}
+
+.error {
+  color: #D41227;
+}
+
+/* Peu / status bar */
+Footer {
+  background: #000900;
+  color: #4AEF98;
+  dock: bottom;
+  height: 1;
+  padding: 0 1;
+}

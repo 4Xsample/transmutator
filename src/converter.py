@@ -93,38 +93,52 @@ class VideoConverter:
         original_size = input_file.stat().st_size
         
         # Build HandBrakeCLI command
+        # Use --json for better progress parsing
         cmd = [
             Config.HANDBRAKE_CLI,
             "--input", str(input_file),
             "--output", str(output_file),
             "--preset", preset,
-            "--verbose"  # For progress parsing
+            "--json"  # JSON output for better progress parsing
         ]
         
         try:
             import time
+            import json
             start_time = time.time()
             
             # Run HandBrakeCLI
             process = subprocess.Popen(
                 cmd,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
+                stderr=subprocess.PIPE,
                 universal_newlines=True,
                 bufsize=1
             )
             
-            # Parse output for progress if callback provided
+            # Parse JSON output for progress if callback provided
             if progress_callback:
                 for line in process.stdout:
-                    # HandBrakeCLI progress format: "Encoding: task 1 of 1, 45.23 %"
-                    if "Encoding:" in line and "%" in line:
-                        try:
-                            percent_str = line.split("%")[0].split()[-1]
-                            percent = float(percent_str)
-                            progress_callback(percent, "")
-                        except (ValueError, IndexError):
-                            pass
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        # HandBrake JSON output: {"Progress": {"PercentComplete": 45.23, ...}}
+                        data = json.loads(line)
+                        if "Progress" in data:
+                            progress = data["Progress"]
+                            percent = progress.get("PercentComplete", 0.0)
+                            if percent > 0:
+                                progress_callback(percent, "")
+                    except (json.JSONDecodeError, KeyError, ValueError):
+                        # Fallback: try to parse text output
+                        if "Encoding:" in line and "%" in line:
+                            try:
+                                percent_str = line.split("%")[0].split()[-1]
+                                percent = float(percent_str)
+                                progress_callback(percent, "")
+                            except (ValueError, IndexError):
+                                pass
             
             process.wait()
             duration = time.time() - start_time
@@ -317,8 +331,11 @@ class MediaConverter:
         """
         if output_path is None:
             output_dir = Config.get_output_path(media_file.category)
-            output_path = output_dir / media_file.path.name
-        
+            if media_file.media_type == MediaType.AUDIO and media_file.path.suffix.lower() in Config.AUDIO_LOSSLESS_EXTENSIONS:
+                output_path = output_dir / (media_file.path.stem + "." + Config.AUDIO_TARGET_FORMAT)
+            else:
+                output_path = output_dir / media_file.path.name
+
         if media_file.media_type == MediaType.VIDEO:
             return VideoConverter.convert(
                 media_file.path,
