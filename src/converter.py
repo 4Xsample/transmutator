@@ -5,7 +5,9 @@ Handles HandBrakeCLI (video) and FFmpeg (audio) conversions.
 """
 
 import json
+import os
 import re
+import signal
 import subprocess
 import shutil
 import threading
@@ -44,9 +46,59 @@ def _format_eta(seconds: float) -> str:
     return f"{h:02d}h{m:02d}m{s:02d}s"
 
 
+class ProcessHandle:
+    """Mutable handle to control a running subprocess (pause/stop).
+
+    Pass an instance to the converter so it can register the subprocess.
+    The TUI can then call :meth:`kill`, :meth:`pause` or :meth:`resume`
+    from the main thread while the conversion runs in a worker thread.
+    """
+
+    def __init__(self):
+        self.process: Optional[subprocess.Popen] = None
+        self._paused = False
+
+    def kill(self) -> None:
+        """Kill the subprocess and all its children immediately."""
+        if self.process is None or self.process.poll() is not None:
+            return
+        try:
+            os.killpg(os.getpgid(self.process.pid), signal.SIGKILL)
+        except (ProcessLookupError, OSError):
+            try:
+                self.process.kill()
+            except (ProcessLookupError, OSError):
+                pass
+        self._paused = False
+
+    def pause(self) -> None:
+        """Pause the subprocess (SIGSTOP)."""
+        if self.process is None or self.process.poll() is not None or self._paused:
+            return
+        try:
+            os.killpg(os.getpgid(self.process.pid), signal.SIGSTOP)
+            self._paused = True
+        except (ProcessLookupError, OSError):
+            pass
+
+    def resume(self) -> None:
+        """Resume the subprocess (SIGCONT)."""
+        if self.process is None or self.process.poll() is not None or not self._paused:
+            return
+        try:
+            os.killpg(os.getpgid(self.process.pid), signal.SIGCONT)
+            self._paused = False
+        except (ProcessLookupError, OSError):
+            pass
+
+    @property
+    def is_paused(self) -> bool:
+        return self._paused
+
+
 class ConversionResult:
     """Result of a conversion operation."""
-    
+
     def __init__(
         self,
         success: bool,
@@ -66,12 +118,12 @@ class ConversionResult:
 
 class VideoConverter:
     """Handles video conversion using HandBrakeCLI."""
-    
+
     @staticmethod
     def is_handbrake_available() -> bool:
         """Check if HandBrakeCLI is available."""
         return shutil.which(Config.HANDBRAKE_CLI) is not None
-    
+
     @staticmethod
     def get_preset_for_category(category: str) -> str:
         """Get the HandBrake preset name for a category."""
@@ -81,14 +133,15 @@ class VideoConverter:
             return Config.VIDEO_PRESET_SERIES
         else:
             return Config.VIDEO_PRESET_MOVIES  # Default
-    
+
     @classmethod
     def convert(
         cls,
         input_file: Path,
         output_file: Path,
         category: str,
-        progress_callback: Optional[Callable[[float, str], None]] = None
+        progress_callback: Optional[Callable[[float, str], None]] = None,
+        process_handle: Optional[ProcessHandle] = None,
     ) -> ConversionResult:
         """
         Convert a video file using HandBrakeCLI.
@@ -103,6 +156,7 @@ class VideoConverter:
             output_file: Output video file path
             category: Category (radarr/tv-sonarr) to determine preset
             progress_callback: Optional callback for progress updates (percent, eta)
+            process_handle: Optional ProcessHandle for pause/stop control
 
         Returns:
             ConversionResult object
@@ -143,7 +197,10 @@ class VideoConverter:
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
                 bufsize=1,
+                start_new_session=True,
             )
+            if process_handle is not None:
+                process_handle.process = process
 
             # Drain stderr in a background thread to prevent pipe deadlock.
             # We keep the lines for error reporting if the process fails.
@@ -283,6 +340,7 @@ class AudioConverter:
         input_file: Path,
         output_file: Path,
         progress_callback: Optional[Callable[[float, str], None]] = None,
+        process_handle: Optional[ProcessHandle] = None,
     ) -> ConversionResult:
         """
         Convert an audio file using FFmpeg.
@@ -294,6 +352,7 @@ class AudioConverter:
             input_file: Input audio file path
             output_file: Output audio file path
             progress_callback: Optional callback for progress updates
+            process_handle: Optional ProcessHandle for pause/stop control
 
         Returns:
             ConversionResult object
@@ -358,7 +417,10 @@ class AudioConverter:
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
                 bufsize=1,
+                start_new_session=True,
             )
+            if process_handle is not None:
+                process_handle.process = process
 
             # Drain stdout in background (FFmpeg writes nothing useful there)
             stdout_thread = threading.Thread(
@@ -425,22 +487,24 @@ class AudioConverter:
 
 class MediaConverter:
     """Main converter class that routes to appropriate converter."""
-    
+
     @classmethod
     def convert(
         cls,
         media_file: MediaFile,
         output_path: Optional[Path] = None,
-        progress_callback: Optional[Callable[[float, str], None]] = None
+        progress_callback: Optional[Callable[[float, str], None]] = None,
+        process_handle: Optional[ProcessHandle] = None,
     ) -> ConversionResult:
         """
         Convert a media file based on its type.
-        
+
         Args:
             media_file: MediaFile object to convert
             output_path: Optional output path override
             progress_callback: Optional progress callback
-        
+            process_handle: Optional ProcessHandle for pause/stop control
+
         Returns:
             ConversionResult object
         """
@@ -456,13 +520,15 @@ class MediaConverter:
                 media_file.path,
                 output_path,
                 media_file.category,
-                progress_callback
+                progress_callback,
+                process_handle,
             )
         elif media_file.media_type == MediaType.AUDIO:
             return AudioConverter.convert(
                 media_file.path,
                 output_path,
-                progress_callback
+                progress_callback,
+                process_handle,
             )
         else:
             return ConversionResult(

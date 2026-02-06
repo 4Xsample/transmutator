@@ -110,10 +110,18 @@ O directament: `python -m src.app`. Tancar amb **q**.
 - [x] Parser de progrés HandBrake robust (JSON `--json` + fallback text, threading)
 - [x] Parser de progrés FFmpeg real (duració via `ffprobe` + `time=` de stderr)
 
-### ⚠️ Pendents (Fase 2+)
-- **Pausa**: Botó implementat però funcionalitat no completada (Fase 2).
-- **Stop**: Atura després de l'arxiu actual; aturada immediata (kill subprocess) pendent (Fase 2).
-- **Fase Extract/Load**: Només està implementada la fase Transform (conversió). Les fases Extract (còpia a TMP) i Load (enviament a Plex) queden per implementar.
+### ✅ Fase 2 (v0.5) - Completada
+- [x] Pipeline complet: Extract (rsync Torrent → TMP), Transform (conversió), Load (rsync → Plex)
+- [x] Pausa real: SIGSTOP/SIGCONT del subprocés (HandBrake/FFmpeg/rsync)
+- [x] Stop immediat: SIGKILL al grup de processos (no cal esperar l'arxiu actual)
+- [x] Gestió de cues: moure arxius amunt/avall amb tecles `u`/`d`
+- [x] Verificació d'espai en disc abans d'Extract i Transform
+- [x] Recollida de resultats per al futur report (Fase 3)
+
+### ⚠️ Pendents (Fase 3+)
+- **Report final**: Pantalla de resum amb èxits vs errors (Fase 3).
+- **Guardar report**: Exportar a `.txt` o `.md` (Fase 3).
+- **Poliment estètic**: Scanlines, efectes CRT, sons (Fase 3).
 
 ### 📅 Properes Fases
 Veure `docs/roadmap.md` per al roadmap complet.

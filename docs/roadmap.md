@@ -20,13 +20,13 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 *   [x] Parser de progrés FFmpeg real (duració via `ffprobe` + parsing `time=` de stderr).
 *   [x] Visualització d'ETA al label de progrés de la TUI.
 
-## Fase 2: Control i Robustesa (v0.5 - v0.7)
-*   [ ] Gestió de cues: Moure arxius amunt/avall.
-*   [ ] Implementació completa del botó de Pausa (aturada controlada dels subprocessos).
-*   [ ] Stop immediat: Kill subprocess en lloc d'esperar a l'arxiu actual.
-*   [ ] Sistema de logs detallat per al report final.
-*   [ ] Verificació d'espai en disc abans d'iniciar la fase d'importació.
-*   [ ] Implementació de les fases Extract (còpia Torrent → TMP) i Load (enviament a Plex).
+## Fase 2: Control i Robustesa (v0.5 - v0.7) ✅ COMPLETADA
+*   [x] Gestió de cues: Moure arxius amunt/avall (tecles `u`/`d`).
+*   [x] Implementació completa del botó de Pausa (SIGSTOP/SIGCONT via ProcessHandle).
+*   [x] Stop immediat: Kill subprocess (SIGKILL al grup de processos).
+*   [x] Sistema de logs detallat per al report final (recollida de resultats per fase).
+*   [x] Verificació d'espai en disc abans d'iniciar la fase d'importació i conversió.
+*   [x] Implementació de les fases Extract (rsync Torrent → TMP) i Load (rsync → Plex).
 
 ## Fase 3: Report i Poliment (v0.8 - v0.9)
 *   [ ] Pantalla final de Report: Quadre d'èxits (info curiosa) vs Quadre d'errors.
@@ -40,4 +40,4 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 
 ---
 *Última actualització: 06/02/2026.*  
-*Estat actual: Fase 1 completada - TUI funcional amb pipeline de conversió, parsers de progrés robusts i ETA en temps real.*
+*Estat actual: Fase 2 completada - Pipeline complet (Extract/Transform/Load), control de processos (pausa/stop), gestió de cues i verificació d'espai.*
