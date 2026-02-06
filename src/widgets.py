@@ -14,7 +14,7 @@ from typing import List
 
 from textual.app import ComposeResult
 from textual.binding import Binding
-from textual.containers import Container, Horizontal
+from textual.containers import Container, Horizontal, VerticalScroll
 from textual.screen import Screen
 from textual.widgets import Button, Static
 
@@ -377,3 +377,47 @@ class CountdownScreen(Screen):
 
     def action_cancel(self) -> None:
         self.dismiss("stop")
+
+
+# ── ReportScreen ─────────────────────────────────────────────────────
+
+
+class ReportScreen(Screen):
+    """Full-screen pipeline report in Pip-Boy style.
+
+    Receives pre-rendered Rich-markup *content* and displays it in a
+    scrollable container with **Guardar Report** / **Tancar** buttons.
+
+    Dismiss results:
+        ``"save"``  – user wants to save the report to disk
+        ``"close"`` – user dismissed without saving
+    """
+
+    BINDINGS = [
+        Binding("escape", "close", "Tancar"),
+        Binding("s", "save", "Guardar"),
+    ]
+
+    def __init__(self, content: str):
+        super().__init__()
+        self._content = content
+
+    def compose(self) -> ComposeResult:
+        with Container(id="report-box"):
+            with VerticalScroll(id="report-scroll"):
+                yield Static(self._content, id="report-body")
+            with Horizontal(id="report-buttons"):
+                yield Button("Guardar Report", id="rpt-save", variant="primary")
+                yield Button("Tancar", id="rpt-close")
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "rpt-save":
+            self.dismiss("save")
+        elif event.button.id == "rpt-close":
+            self.dismiss("close")
+
+    def action_close(self) -> None:
+        self.dismiss("close")
+
+    def action_save(self) -> None:
+        self.dismiss("save")

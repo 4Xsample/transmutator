@@ -28,13 +28,14 @@ Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contin
 - `docs/`: Documentació d'arquitectura i visió.
 - `src/`: Codi font de l'aplicació.
   - `app.py`: TUI principal (Textual).
-  - `widgets.py`: Widgets customs (DualColumnList, SegmentedBar, CountdownScreen).
+  - `widgets.py`: Widgets customs (DualColumnList, SegmentedBar, CountdownScreen, ReportScreen).
   - `hacker.py`: Animació terminal entre fases.
   - `pipeline.py`: Fases Extract i Load (rsync/shutil).
   - `converter.py`: Conversió de mèdia (HandBrake/FFmpeg) + ProcessHandle.
   - `file_detector.py`: Detecció i classificació de fitxers.
+  - `report.py`: Generació de reports (TUI + Markdown).
   - `config.py`: Configuració YAML.
-- `tests/`: Proves unitàries (70 tests).
+- `tests/`: Proves unitàries (111 tests).
 
 ## 🏃 Instal·lació i Ús
 
@@ -132,10 +133,20 @@ O directament: `python -m src.app`. Tancar amb **q**.
 - [x] Popup countdown modal amb resum i compte enrere
 - [x] Amplada dinàmica de columnes (s'adapta al terminal)
 
-### ⚠️ Pendents (Fase 3+)
-- **Report final**: Pantalla de resum amb èxits vs errors (Fase 3).
-- **Guardar report**: Exportar a `.txt` o `.md` (Fase 3).
-- **Efectes CRT**: Scanlines, phosphor glow (Fase 3).
+### ✅ Fase 3 (v0.8) - Completada
+- [x] Pantalla final de Report: quadre d'èxits amb estadístiques vs quadre d'errors
+- [x] Exportació del report a fitxer `.md` (Guardar Report)
+- [x] Efectes CRT: phosphor glow (tint), marc de monitor CRT (heavy border)
+- [x] Animació hacker de transició al report amb dades reals del pipeline
+- [x] Progrés HandBrake en temps real (JSON multilínia 1.10+, pty, throttle 1s/1%)
+- [x] Countdown amb categories alineades (Pel·lícules / Episodis / Cançons)
+- [x] Report i label de progrés amb amplada dinàmica segons terminal
+- [x] 111 tests (pytest)
+
+### ⚠️ Pendents (Fase 4)
+- **Refactorització** de codi i neteja de deute tècnic.
+- **Menú de configuració** interactiu (per no editar fitxers a mà).
+- **Documentació final** de l'usuari.
 
 ### 📅 Properes Fases
 Veure `docs/roadmap.md` per al roadmap complet.

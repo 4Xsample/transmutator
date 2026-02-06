@@ -1,11 +1,14 @@
 /* Transmutator V2 – Pip-Boy / 4Xsample Industries theme
    Palette: docs/pipboy_theme_notes.md
+   CRT phosphor glow effect via tint.
 */
 
 /* ── Screen ────────────────────────────────────────────────────── */
 
 Screen {
     background: #000900;
+    /* Subtle CRT phosphor tint */
+    tint: #4AEF98 4%;
 }
 
 /* ── Header ────────────────────────────────────────────────────── */
@@ -30,6 +33,8 @@ Header .header-title {
     color: #4AEF98;
     padding: 1 2;
     height: 100%;
+    /* CRT monitor frame */
+    border: heavy #1a3a1a;
 }
 
 #branding {
@@ -160,6 +165,40 @@ CountdownScreen {
 }
 
 #cd-buttons {
+    height: 3;
+    align: center middle;
+    margin: 1 0 0 0;
+}
+
+/* ── Report screen ─────────────────────────────────────────────── */
+
+ReportScreen {
+    align: center middle;
+}
+
+#report-box {
+    width: 100%;
+    height: 100%;
+    background: #000900;
+    border: heavy #2d8a4e;
+    padding: 1 2;
+}
+
+#report-scroll {
+    height: 1fr;
+    min-height: 8;
+    border: solid #1a3a1a;
+    background: #000900;
+    padding: 0 1;
+    scrollbar-size: 1 1;
+}
+
+#report-body {
+    width: 100%;
+    color: #4AEF98;
+}
+
+#report-buttons {
     height: 3;
     align: center middle;
     margin: 1 0 0 0;

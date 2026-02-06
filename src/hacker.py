@@ -69,11 +69,34 @@ def _tech_lines_load(ctx: Dict[str, Any]) -> List[str]:
     ]
 
 
+def _tech_lines_report(ctx: Dict[str, Any]) -> List[str]:
+    ok = ctx.get("ok_count", 0)
+    fail = ctx.get("fail_count", 0)
+    total = ok + fail
+    saved = ctx.get("space_saved", "—")
+    duration = ctx.get("duration", "—")
+    return [
+        "> Pipeline completat. Compilant resultats...",
+        "> Analitzant integritat dels fitxers de sortida...",
+        f"> Total fitxers processats: {total}",
+        f">   Èxits:  {ok}",
+        f">   Errors: {fail}",
+        "> Calculant estadístiques de compressió...",
+        f"> Espai estalviat: {saved}",
+        f"> Temps total de processament: {duration}",
+        "> Verificant checksums...",
+        "> Generant report final...",
+        "> Report ready.",
+    ]
+
+
 def generate_animation(ctx: Dict[str, Any], num_quotes: int = 3) -> List[str]:
     """Return a list of ``(line, delay_s)`` for the hacker animation."""
     phase = ctx.get("phase", "transform")
     if phase == "load":
         tech = _tech_lines_load(ctx)
+    elif phase == "report":
+        tech = _tech_lines_report(ctx)
     else:
         tech = _tech_lines_transform(ctx)
 

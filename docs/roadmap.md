@@ -35,10 +35,13 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 *   [x] Amplada dinàmica de columnes: adaptació automàtica a la mida del terminal.
 *   [x] Parsing de percentatge rsync en temps real per alimentar el gradient i la barra segmentada.
 
-## Fase 3: Report i Poliment (v0.8 - v0.9)
-*   [ ] Pantalla final de Report: Quadre d'èxits (info curiosa) vs Quadre d'errors.
-*   [ ] Funció de guardat del report en fitxer `.txt` o `.md`.
-*   [ ] Efectes estètics CRT: scanlines, phosphor glow, sons (si s'escau).
+## Fase 3: Report i Poliment (v0.8 - v0.9) ✅ COMPLETADA
+*   [x] Pantalla final de Report: Quadre d'èxits (info curiosa) vs Quadre d'errors.
+*   [x] Funció de guardat del report en fitxer `.md`.
+*   [x] Efectes estètics CRT: phosphor glow (tint), marc CRT (heavy border).
+*   [x] Progrés HandBrake en temps real: suport JSON multilínia (1.10+), pty, throttle 1s/1%.
+*   [x] Countdown amb categories alineades (Pel·lícules / Episodis / Cançons).
+*   [x] Report i label de progrés amb amplada dinàmica; preset HandBrake via `--preset-import-file`.
 
 ## Fase 4: Versió Final (v1.0)
 *   [ ] Refactorització de codi i neteja de deute tècnic.
@@ -47,4 +50,4 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 
 ---
 *Última actualització: 06/02/2026.*  
-*Estat actual: Fase 2 completada — Pipeline complet (Extract/Transform/Load), control de processos, TUI amb gradient per-lletra, animacions entre fases i amplada dinàmica.*
+*Estat actual: Fase 3 completada (v0.8) — Report final, export Markdown, CRT, progrés HandBrake en temps real (JSON multilínia + throttle), countdown alineat, 111 tests.*

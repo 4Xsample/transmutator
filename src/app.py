@@ -22,11 +22,13 @@ from .converter import ConversionResult, MediaConverter, ProcessHandle
 from .file_detector import FileDetector, MediaFile, MediaType
 from .hacker import generate_animation
 from .pipeline import ExtractPhase, LoadPhase, check_disk_space, format_size
+from .report import ReportData, build_report_tui, save_report, fmt_duration
 from .widgets import (
     BRIGHT, DIM, WARN,
     CountdownScreen,
     DualColumnList,
     FileRow,
+    ReportScreen,
     SegmentedBar,
 )
 
@@ -178,6 +180,26 @@ class TransmutatorApp(App):
         except Exception:
             pass
 
+    # Minimum chars reserved for suffix so "mida | % | ETA" always visible
+    _SUFFIX_RESERVE = 42  # e.g. "  |  1.2 GB  |  100.0%  |  ETA: 00h00m00s"
+
+    def _progress_text(self, name: str, suffix: str = "", prefix: str = "  ") -> str:
+        """Build a progress label, truncating *name* so *suffix* stays visible."""
+        try:
+            w = self.size.width
+        except Exception:
+            w = 80
+        if w <= 0:
+            w = 80
+        usable = max(20, w - 8)
+        suffix_len = max(len(suffix), self._SUFFIX_RESERVE)
+        avail = usable - len(prefix) - suffix_len
+        if avail < 4:
+            avail = 4
+        if len(name) > avail:
+            name = name[: avail - 2] + ".."
+        return f"{prefix}{name}{suffix}"
+
     def _show_list(self):
         self.query_one("#list-scroll").display = True
         self.query_one("#anim-log").display = False
@@ -207,22 +229,33 @@ class TransmutatorApp(App):
                 elif pct > 0 and r.status != "done":
                     fl.update_row(i, pct=pct, status="active")
                 break
-        self._set_label(f"  {basename}  |  {pct:.0f}%")
+        self._set_label(self._progress_text(basename, f"  |  {pct:.0f}%"))
 
     # ── Hacker animation (run from worker) ────────────────────────────
 
-    def _run_animation(self, ctx: dict):
-        """Display hacker terminal animation (blocking, from worker)."""
+    def _run_animation(self, ctx: dict, duration: float = 9.0):
+        """Display hacker terminal animation (blocking, from worker).
+
+        *duration* controls the total animation time in seconds.  Sleep
+        per line is computed dynamically; quote lines get 60 % extra.
+        """
         self.call_from_thread(self._show_anim)
         lines = generate_animation(ctx)
+        if not lines:
+            return
         log = self.query_one("#anim-log", RichLog)
+        n_quotes = sum(1 for l in lines if '"' in l and "—" in l)
+        n_tech = len(lines) - n_quotes
+        # Distribute time: quote lines get 1.6× the base delay
+        divisor = n_tech + n_quotes * 1.6
+        base = max(0.04, (duration - 0.3) / divisor) if divisor else 0.3
         for line in lines:
             if self._stop_pipeline:
                 break
             is_quote = '"' in line and "—" in line
             style = f"italic {WARN}" if is_quote else BRIGHT
             self.call_from_thread(log.write, f"[{style}]{line}[/]")
-            time.sleep(0.12 if is_quote else 0.07)
+            time.sleep(base * 1.6 if is_quote else base)
         time.sleep(0.3)
 
     # ── Countdown (run from worker, blocks until dismissed) ───────────
@@ -295,8 +328,11 @@ class TransmutatorApp(App):
         app.media_files = new_files
 
         # ── Transition animation → countdown ─────────────────────────
-        vc = sum(1 for f in app.media_files if f.media_type == MediaType.VIDEO)
-        ac = sum(1 for f in app.media_files if f.media_type == MediaType.AUDIO)
+        movies = sum(1 for f in app.media_files if f.category == "radarr")
+        episodes = sum(1 for f in app.media_files if f.category == "tv-sonarr")
+        songs = sum(1 for f in app.media_files if f.category == "lidarr")
+        vc = movies + episodes
+        ac = songs
         ctx = {
             "phase": "transform",
             "files_count": len(app.media_files),
@@ -311,13 +347,16 @@ class TransmutatorApp(App):
             app.call_from_thread(app._pipeline_finished)
             return
 
+        # Columnes alineades: etiqueta ample fix, xifres alineades a la dreta
+        w = 16  # amplada etiqueta
         summary = [
-            f"  RESUM DE CONVERSIÓ",
+            "  RESUM DE CONVERSIÓ",
             "",
-            f"    Pel·lícules / Sèries:  {vc}",
-            f"    Àlbums / Cançons:      {ac}",
-            f"    ─────────────────────────",
-            f"    TOTAL:                 {vc + ac}",
+            f"    {'Pel·lícules:':<{w}} {movies:>4}",
+            f"    {'Episodis:':<{w}} {episodes:>4}",
+            f"    {'Cançons:':<{w}} {songs:>4}",
+            "    " + "─" * (w + 6),
+            f"    {'TOTAL:':<{w}} {movies + episodes + songs:>4}",
         ]
         result = app._run_countdown(summary, seconds=10)
         if result == "stop":
@@ -355,18 +394,37 @@ class TransmutatorApp(App):
                 break
             app.call_from_thread(app._fl().update_row, i, status="active")
             app.call_from_thread(app._fl().set_selected, i)
+            fsize = format_size(mf.original_size) if mf.original_size else "—"
             app.call_from_thread(
                 app._set_label,
-                f"  Progrés arxiu actual: {mf.path.name}",
+                app._progress_text(
+                    mf.path.name,
+                    f"  |  {fsize}  |  —  |  ETA: —",
+                    prefix="  Progrés arxiu actual: ",
+                ),
             )
 
-            def pcb(pct: float, eta: str, _i=i, _name=mf.path.name):
-                app.call_from_thread(app._fl().update_row, _i, pct=pct)
-                eta_s = f"  |  ETA: {eta}" if eta else ""
-                app.call_from_thread(
-                    app._set_label,
-                    f"  Progrés arxiu actual: {_name}  |  {pct:.1f}%{eta_s}",
-                )
+            # Throttle: actualitzar UI com a màxim cada 1 s o cada 1% per estalviar crides
+            _last = [0.0, -1.0]  # [last_time, last_pct]
+
+            def pcb(pct: float, eta: str, _i=i, _name=mf.path.name, _fsize=fsize):
+                now = time.monotonic()
+                dt = now - _last[0]
+                dp = abs(pct - _last[1])
+                if pct >= 99.9 or dt >= 1.0 or dp >= 1.0 or _last[1] < 0:
+                    _last[0] = now
+                    _last[1] = pct
+                    def update_ui():
+                        app._fl().update_row(_i, pct=pct)
+                        app._fl().refresh()
+                    app.call_from_thread(update_ui)
+                    mida = _fsize if _fsize else "—"
+                    eta_part = f"ETA: {eta}" if eta else "ETA: —"
+                    suffix = f"  |  {mida}  |  {pct:.1f}%  |  {eta_part}"
+                    app.call_from_thread(
+                        app._set_label,
+                        app._progress_text(_name, suffix, prefix="  Progrés arxiu actual: "),
+                    )
 
             res = MediaConverter.convert(mf, progress_callback=pcb, process_handle=app._ph)
             app._results.append((mf, res))
@@ -397,11 +455,12 @@ class TransmutatorApp(App):
             app.call_from_thread(app._pipeline_finished)
             return
 
+        w2 = 20
         load_summary = [
             "  RESUM D'ENVIAMENT",
             "",
-            f"    Fitxers convertits:  {app._conv_done}",
-            f"    Destí: Plex",
+            f"    {'Fitxers convertits:':<{w2}} {app._conv_done:>4}",
+            "    Destí: Plex",
         ]
         result = app._run_countdown(load_summary, seconds=10)
         if result == "stop":
@@ -439,6 +498,28 @@ class TransmutatorApp(App):
             lambda: app._seg().set_seg(2, active=False, done=True,
                                         cur=app._load_done, tot=app._load_total)
         )
+
+        # ── Report animation ────────────────────────────────────────
+        if app._results:
+            ok = sum(1 for _, r in app._results if r.success)
+            fail = sum(1 for _, r in app._results if not r.success)
+            saved_bytes = sum(
+                (cr.original_size or 0) - (cr.output_size or 0)
+                for _, cr in app._results
+                if cr.success and cr.original_size and cr.output_size
+            )
+            total_secs = sum(
+                cr.duration_seconds or 0 for _, cr in app._results
+            )
+            report_ctx = {
+                "phase": "report",
+                "ok_count": ok,
+                "fail_count": fail,
+                "space_saved": format_size(max(0, saved_bytes)),
+                "duration": fmt_duration(total_secs),
+            }
+            app._run_animation(report_ctx)
+
         app.call_from_thread(app._pipeline_finished)
 
     # ── Pipeline end ──────────────────────────────────────────────────
@@ -453,15 +534,31 @@ class TransmutatorApp(App):
             self.query_one("#btn-pause", Button).label = "Pausa"
         except Exception:
             pass
-        ok = sum(1 for _, r in self._results if r.success)
-        fail = sum(1 for _, r in self._results if not r.success)
+
         if self._results:
-            self.notify(
-                f"Pipeline finalitzat. Èxits: {ok}, Errors: {fail}",
-                severity="information" if fail == 0 else "warning",
+            report_data = ReportData(
+                results=self._results,
+                extract_done=self._ext_done,
+                extract_total=self._ext_total,
+                load_done=self._load_done,
+                load_total=self._load_total,
             )
+            self._report_data = report_data
+            # Usable width: terminal minus borders/padding
+            rpt_w = max(40, self.size.width - 8) if self.size.width > 0 else 80
+            content = build_report_tui(report_data, width=rpt_w)
+            self.push_screen(ReportScreen(content), callback=self._on_report_dismiss)
         else:
             self.notify("Pipeline finalitzat.", severity="information")
+
+    def _on_report_dismiss(self, result: str) -> None:
+        """Handle ReportScreen dismissal."""
+        if result == "save":
+            try:
+                path = save_report(self._report_data)
+                self.notify(f"Report guardat: {path}", severity="information")
+            except Exception as e:
+                self.notify(f"Error guardant report: {e}", severity="error")
 
     # ── Queue management ──────────────────────────────────────────────
 

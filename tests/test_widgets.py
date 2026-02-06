@@ -159,3 +159,12 @@ class TestHackerAnimation:
 
     def test_quotes_list_not_empty(self):
         assert len(QUOTES) >= 10
+
+    def test_report_phase(self):
+        lines = generate_animation(
+            {"phase": "report", "ok_count": 5, "fail_count": 1, "space_saved": "1.2 GB"},
+        )
+        assert isinstance(lines, list)
+        assert len(lines) > 0
+        has_report = any("report" in l.lower() or "compilant" in l.lower() for l in lines)
+        assert has_report

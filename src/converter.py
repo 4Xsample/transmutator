@@ -2,19 +2,33 @@
 Conversion module for video and audio files.
 
 Handles HandBrakeCLI (video) and FFmpeg (audio) conversions.
+
+Debug HandBrake progress: run with TRANSMUTATOR_DEBUG_HANDBRAKE=1 to write
+every line from HandBrake stdout/stderr to handbrake_debug.log (current dir).
+Use it to see exactly what your HandBrake version outputs for progress.
 """
 
 import json
 import os
+import queue
 import re
 import signal
 import subprocess
 import shutil
+import sys
 import threading
 import time
 from pathlib import Path
 from typing import Optional, Dict, Any, Callable, List
 import logging
+
+# Pseudo-TTY per forçar line-buffering de HandBrake (només Unix)
+try:
+    import pty
+    _PTY_AVAILABLE = sys.platform != "win32"
+except ImportError:
+    pty = None  # type: ignore
+    _PTY_AVAILABLE = False
 
 from .config import Config
 from .file_detector import MediaFile, MediaType
@@ -36,6 +50,105 @@ def _drain_pipe(pipe, sink: Optional[List[str]] = None) -> None:
         pass
 
 
+def _stdout_reader(pipe, out_queue: queue.Queue) -> None:
+    """Read stdout line by line and put into queue; put None when done."""
+    try:
+        for line in pipe:
+            out_queue.put(line)
+    except Exception:
+        pass
+    finally:
+        out_queue.put(None)
+
+
+def _collect_multiline_json(lines: List[str]) -> Optional[str]:
+    """Given lines like 'Progress: {', '    "State": "WORKING",', ... '}',
+    return the complete JSON string (from first { to matching }) or None.
+    """
+    combined = "\n".join(lines)
+    i = combined.find("{")
+    if i < 0:
+        return None
+    depth = 0
+    for j in range(i, len(combined)):
+        if combined[j] == "{":
+            depth += 1
+        elif combined[j] == "}":
+            depth -= 1
+            if depth == 0:
+                return combined[i : j + 1]
+    return None
+
+
+def _try_json_progress(
+    line: str,
+    progress_callback: Callable[[float, str], None],
+    format_eta_fn: Callable[[float], str],
+) -> bool:
+    """Si *line* és JSON amb Progress/ETA, crida progress_callback i retorna True."""
+    line = line.strip()
+    if not line or not line.startswith("{"):
+        return False
+    try:
+        data = json.loads(line)
+        res = _extract_progress_eta(data)
+        if res is not None:
+            percent, eta_sec = res
+            progress_callback(percent, format_eta_fn(eta_sec))
+            return True
+        state = (data.get("State") or data.get("state") or "").strip()
+        if state == "WORKING":
+            working = data.get("Working") or data.get("working") or {}
+            if isinstance(working, dict):
+                prog = working.get("Progress", working.get("progress", 0.0))
+                if isinstance(prog, (int, float)):
+                    pct = float(prog) * 100.0 if prog <= 1.0 else float(prog)
+                else:
+                    return False
+                eta_sec = working.get("ETASeconds", working.get("etaSeconds", 0)) or 0
+                progress_callback(pct, format_eta_fn(float(eta_sec)))
+                return True
+        elif state == "SCANNING":
+            scanning = data.get("Scanning") or data.get("scanning") or {}
+            if isinstance(scanning, dict):
+                sp = scanning.get("Progress", scanning.get("progress", 0.0)) or 0.0
+                scan_pct = float(sp) * 5.0 if float(sp) <= 1.0 else min(5.0, float(sp))
+                progress_callback(scan_pct, "Escanejant…")
+                return True
+    except (json.JSONDecodeError, TypeError, ValueError, KeyError):
+        pass
+    return False
+
+
+def _stderr_progress_reader(
+    pipe,
+    sink: List[str],
+    progress_callback: Optional[Callable[[float, str], None]],
+    text_parser: Callable[[str, Callable[[float, str], None]], None],
+    format_eta_fn: Optional[Callable[[float], str]] = None,
+    debug_file: Optional[Any] = None,
+) -> None:
+    """Llegeix stderr: desa línies, intenta JSON progress, i si no text progress (%)."""
+    format_eta_fn = format_eta_fn or _format_eta
+    try:
+        for line in pipe:
+            sink.append(line)
+            if debug_file:
+                try:
+                    debug_file.write(f"[stderr] {line}")
+                    debug_file.flush()
+                except Exception:
+                    pass
+            if not progress_callback:
+                continue
+            if _try_json_progress(line, progress_callback, format_eta_fn):
+                continue
+            if "%" in line:
+                text_parser(line, progress_callback)
+    except Exception:
+        pass
+
+
 def _format_eta(seconds: float) -> str:
     """Convert seconds into a human-readable ETA string (e.g. '01h23m45s')."""
     if seconds <= 0:
@@ -44,6 +157,48 @@ def _format_eta(seconds: float) -> str:
     m = int((seconds % 3600) // 60)
     s = int(seconds % 60)
     return f"{h:02d}h{m:02d}m{s:02d}s"
+
+
+def _extract_progress_eta(data: Dict[str, Any]) -> Optional[tuple]:
+    """Extreu (percent, eta_seconds) d'un dict HandBrake si hi ha Progress/ETASeconds.
+    Cerca a primer nivell i dins de Working/working. Retorna None si no hi ha dades.
+    """
+    percent = None
+    eta_sec = None
+    for key in ("Working", "working"):
+        block = data.get(key)
+        if isinstance(block, dict):
+            p = block.get("Progress", block.get("progress"))
+            e = block.get("ETASeconds", block.get("etaSeconds"))
+            if p is not None:
+                try:
+                    percent = float(p) * 100.0 if float(p) <= 1.0 else float(p)
+                except (TypeError, ValueError):
+                    pass
+            if e is not None:
+                try:
+                    eta_sec = float(e)
+                except (TypeError, ValueError):
+                    pass
+            if percent is not None:
+                break
+    if percent is None:
+        p = data.get("Progress", data.get("progress"))
+        if p is not None:
+            try:
+                percent = float(p) * 100.0 if float(p) <= 1.0 else float(p)
+            except (TypeError, ValueError):
+                pass
+    if eta_sec is None:
+        e = data.get("ETASeconds", data.get("etaSeconds"))
+        if e is not None:
+            try:
+                eta_sec = float(e)
+            except (TypeError, ValueError):
+                pass
+    if percent is not None:
+        return (percent, eta_sec or 0)
+    return None
 
 
 class ProcessHandle:
@@ -179,66 +334,184 @@ class VideoConverter:
         preset = cls.get_preset_for_category(category)
         original_size = input_file.stat().st_size
 
-        # Build HandBrakeCLI command — --json gives structured progress on stdout
+        # Build HandBrakeCLI command — --json envia progress en JSON (stdout o stderr segons versió)
         cmd = [
             Config.HANDBRAKE_CLI,
+            "--preset-import-file", str(Config.HANDBRAKE_PRESETS_PATH),
             "--input", str(input_file),
             "--output", str(output_file),
             "--preset", preset,
             "--json",
         ]
+        if not _PTY_AVAILABLE:
+            stdbuf = shutil.which("stdbuf")
+            if stdbuf:
+                cmd = [stdbuf, "-oL", "-e0"] + cmd
+
+        debug_file = None
+        if os.environ.get("TRANSMUTATOR_DEBUG_HANDBRAKE"):
+            try:
+                debug_file = open("handbrake_debug.log", "a", encoding="utf-8")
+                debug_file.write(f"\n--- {time.strftime('%Y-%m-%d %H:%M:%S')} {input_file.name} ---\n")
+                debug_file.flush()
+            except Exception:
+                debug_file = None
 
         try:
             start_time = time.time()
+            stdout_queue: queue.Queue = queue.Queue()
+            stdout_stream = None
+            slave_fd = None
 
-            process = subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                universal_newlines=True,
-                bufsize=1,
-                start_new_session=True,
-            )
+            if _PTY_AVAILABLE and pty is not None:
+                master_fd, slave_fd = pty.openpty()
+                try:
+                    process = subprocess.Popen(
+                        cmd,
+                        stdout=slave_fd,
+                        stderr=subprocess.PIPE,
+                        universal_newlines=True,
+                        bufsize=1,
+                        start_new_session=True,
+                    )
+                    os.close(slave_fd)
+                    slave_fd = None
+                    stdout_stream = os.fdopen(master_fd, "r", encoding="utf-8", errors="replace")
+                except Exception:
+                    if slave_fd is not None:
+                        try:
+                            os.close(slave_fd)
+                        except OSError:
+                            pass
+                    try:
+                        os.close(master_fd)
+                    except OSError:
+                        pass
+                    raise
+            else:
+                process = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    universal_newlines=True,
+                    bufsize=1,
+                    start_new_session=True,
+                )
+                stdout_stream = process.stdout
+
             if process_handle is not None:
                 process_handle.process = process
 
-            # Drain stderr in a background thread to prevent pipe deadlock.
-            # We keep the lines for error reporting if the process fails.
+            stdout_thread = threading.Thread(
+                target=_stdout_reader, args=(stdout_stream, stdout_queue), daemon=True
+            )
+            stdout_thread.start()
+
+            # Stderr: errors + parsejar JSON o text progress (segons on escrigui HandBrake)
+            # HandBrake often writes progress to stderr; parsing it gives us % and ETA.
             stderr_lines: List[str] = []
             stderr_thread = threading.Thread(
-                target=_drain_pipe, args=(process.stderr, stderr_lines), daemon=True
+                target=_stderr_progress_reader,
+                args=(
+                    process.stderr,
+                    stderr_lines,
+                    progress_callback,
+                    cls._parse_text_progress,
+                    _format_eta,
+                    debug_file,
+                ),
+                daemon=True,
             )
             stderr_thread.start()
 
-            # --- Parse stdout (JSON progress) ---
-            for line in process.stdout:
+            # --- Process stdout (JSON progress) from queue ---
+            # HandBrake 1.10+ envia JSON multilínia ("Progress: { ... }"); cal acumular línies
+            json_buffer: List[str] = []
+            while True:
+                line = stdout_queue.get()
+                if line is None:
+                    break
+                if debug_file:
+                    try:
+                        debug_file.write(f"[stdout] {line}")
+                        debug_file.flush()
+                    except Exception:
+                        pass
+                raw = line
                 line = line.strip()
                 if not line:
                     continue
 
+                if line.startswith("Progress:") or line.startswith("Version:"):
+                    json_buffer = [raw.strip()]
+                    continue
+                if json_buffer:
+                    json_buffer.append(raw.strip())
+                    json_str = _collect_multiline_json(json_buffer)
+                    if json_str is not None:
+                        json_buffer = []
+                        if progress_callback:
+                            try:
+                                data = json.loads(json_str)
+                                state = (data.get("State") or data.get("state") or "").strip()
+                                if state == "WORKING":
+                                    working = data.get("Working") or data.get("working") or {}
+                                    if isinstance(working, dict):
+                                        prog = working.get("Progress", working.get("progress", 0.0))
+                                        if isinstance(prog, (int, float)):
+                                            percent = float(prog) * 100.0 if prog <= 1.0 else float(prog)
+                                        else:
+                                            percent = 0.0
+                                        eta_sec = working.get("ETASeconds", working.get("etaSeconds", 0)) or 0
+                                        eta = _format_eta(float(eta_sec))
+                                        progress_callback(percent, eta)
+                                elif state == "SCANNING":
+                                    scanning = data.get("Scanning") or data.get("scanning") or {}
+                                    if isinstance(scanning, dict):
+                                        scan_prog = scanning.get("Progress", scanning.get("progress", 0.0)) or 0.0
+                                        scan_pct = float(scan_prog) * 5.0 if scan_prog <= 1.0 else min(5.0, float(scan_prog))
+                                        progress_callback(scan_pct, "Escanejant…")
+                                else:
+                                    res = _extract_progress_eta(data)
+                                    if res is not None:
+                                        percent, eta_sec = res
+                                        progress_callback(percent, _format_eta(eta_sec))
+                            except (json.JSONDecodeError, TypeError, ValueError):
+                                pass
+                    continue
+
+                # JSON d'una sola línia (versions antigues)
                 if progress_callback:
                     try:
                         data = json.loads(line)
-                        state = data.get("State", "")
-
+                        state = (data.get("State") or data.get("state") or "").strip()
                         if state == "WORKING":
-                            working = data.get("Working", {})
-                            # Progress is 0.0 – 1.0
-                            percent = working.get("Progress", 0.0) * 100.0
-                            eta = _format_eta(working.get("ETASeconds", 0))
-                            progress_callback(percent, eta)
-
+                            working = data.get("Working") or data.get("working") or {}
+                            if isinstance(working, dict):
+                                prog = working.get("Progress", working.get("progress", 0.0))
+                                if isinstance(prog, (int, float)):
+                                    percent = float(prog) * 100.0 if prog <= 1.0 else float(prog)
+                                else:
+                                    percent = 0.0
+                                eta_sec = working.get("ETASeconds", working.get("etaSeconds", 0)) or 0
+                                eta = _format_eta(float(eta_sec))
+                                progress_callback(percent, eta)
                         elif state == "SCANNING":
-                            scanning = data.get("Scanning", {})
-                            # Show scanning as 0-5 % so the bar gives feedback
-                            scan_pct = scanning.get("Progress", 0.0) * 5.0
-                            progress_callback(scan_pct, "Escanejant…")
-
-                    except json.JSONDecodeError:
-                        # Fallback: plain-text progress (some HB versions)
+                            scanning = data.get("Scanning") or data.get("scanning") or {}
+                            if isinstance(scanning, dict):
+                                scan_prog = scanning.get("Progress", scanning.get("progress", 0.0)) or 0.0
+                                scan_pct = float(scan_prog) * 5.0 if scan_prog <= 1.0 else min(5.0, float(scan_prog))
+                                progress_callback(scan_pct, "Escanejant…")
+                        else:
+                            res = _extract_progress_eta(data)
+                            if res is not None:
+                                percent, eta_sec = res
+                                progress_callback(percent, _format_eta(eta_sec))
+                    except (json.JSONDecodeError, TypeError, ValueError):
                         cls._parse_text_progress(line, progress_callback)
 
             process.wait()
+            stdout_thread.join(timeout=5)
             stderr_thread.join(timeout=5)
             duration = time.time() - start_time
 
@@ -265,6 +538,12 @@ class VideoConverter:
                 error=f"Conversion failed: {str(e)}",
                 original_size=original_size,
             )
+        finally:
+            if debug_file is not None:
+                try:
+                    debug_file.close()
+                except Exception:
+                    pass
 
     # -- helpers ----------------------------------------------------------
 
@@ -272,22 +551,38 @@ class VideoConverter:
     def _parse_text_progress(
         line: str, callback: Callable[[float, str], None]
     ) -> None:
-        """Fallback parser for non-JSON HandBrake output.
+        """Parser per qualsevol línia que sembli progrés (percentatge i opcionalment ETA).
 
-        Matches lines like::
-
-            Encoding: task 1 of 1, 45.23 % (120 fps, avg 115 fps, ETA 00h12m34s)
+        Accepta HandBrake stderr, stdout no-JSON, o qualsevol text amb XX.X% i ETA.
+        Exemples::
+            Encoding: task 1 of 1, 45.23 % (120 fps, ETA 00h12m34s)
+            45.23 % ETA 00:12:34
+            [progress] 45.2%
         """
-        if "Encoding:" not in line or "%" not in line:
+        if "%" not in line:
             return
         try:
-            match = re.search(r"([\d.]+)\s*%", line)
-            if match:
-                percent = float(match.group(1))
-                eta_match = re.search(r"ETA\s+([\dhms]+)", line)
-                eta = eta_match.group(1) if eta_match else ""
-                callback(percent, eta)
-        except (ValueError, IndexError):
+            # Cerca el primer percentatge (nombre amb decimals + %)
+            match = re.search(r"(\d+\.?\d*)\s*%", line)
+            if not match:
+                return
+            percent = float(match.group(1))
+            if percent < 0 or percent > 100:
+                return
+            # ETA: diverses formes (ETA 00h12m34s, ETA 00:12:34, eta 00:12:34)
+            eta = ""
+            eta_match = re.search(r"ETA\s*[:\s]+([\d:hmss]+)", line, re.IGNORECASE)
+            if eta_match:
+                eta = eta_match.group(1).strip()
+                if ":" in eta and "h" not in eta.lower():
+                    parts = eta.split(":")
+                    if len(parts) >= 3:
+                        try:
+                            eta = f"{int(parts[0]):02d}h{int(parts[1]):02d}m{int(parts[2]):02d}s"
+                        except (ValueError, IndexError):
+                            pass
+            callback(percent, eta)
+        except (ValueError, IndexError, TypeError):
             pass
 
 
