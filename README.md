@@ -1,6 +1,8 @@
-# Transmutator V2 ☢️
+| | | | | |
+|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
+| ![Hack the planet](https://img.shields.io/badge/Hack-The%20Planet-orange) | [![Discord](https://img.shields.io/discord/667340023829626920?logo=discord)](https://discord.gg/ahVq54p) | [![@4Xsample@mastodon.social](https://img.shields.io/badge/Mastodon-@4Xsample-blueviolet?style=for-the-badge&logo=mastodon)](https://mastodon.social/@4Xsample) | [![4Xsample](https://img.shields.io/badge/Twitch-4Xsample-6441A4?style=for-the-badge&logo=twitch)](https://twitch.tv/4Xsample) | [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=EFVMSRHVBNJP4) |
 
-**Repositori:** [github.com/4Xsample/transmutator](https://github.com/4Xsample/transmutator)
+# Transmutator V2 ☢️
 
 Transmutator és un pipeline ETL (Extract, Transform, Load) dissenyat per a la gestió automatitzada de llibreries de mèdia en entorns Arch Linux amb Plex. 
 
@@ -117,4 +119,9 @@ O directament: `python -m src.app`. Tancar amb **q**.
 Veure `docs/roadmap.md` per al roadmap complet.
 
 ## 📝 Llicència
-Aquest projecte està creat per a ús personal.
+
+Aquest projecte es distribueix sota una llicència MIT modificada. Consulta el fitxer `LICENSE` per a més detalls.
+
+## Disclaimer
+
+Aquest codi s'ofereix tal com és i no es garanteix que funcioni correctament en totes les condicions. No em faig responsable dels danys que puguin resultar de l'ús d'aquesta informació. Utilitzeu-lo sota la vostra pròpia responsabilitat. Si teniu dubtes, pregunteu.

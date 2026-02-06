@@ -35,4 +35,4 @@ Aquest document descriu el flux de treball de l'usuari i una anàlisi tècnica d
 3. **Hardware Acceleration:** Assegurar que Handbrake faci servir **NVENC** (NVIDIA) per reduir el temps de conversió de hores a minuts.
 
 ---
-*Document generat per Gemini CLI el 25/01/2026.*
+*Última actualització: 25/01/2026.*

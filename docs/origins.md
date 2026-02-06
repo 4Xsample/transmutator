@@ -91,4 +91,4 @@ Un script "wrapper" que permet executar tot el procés o parts d'ell de manera g
 | **Música** | `/mnt/Torrent/lidarr` | `~/Videos/TMP/lidarr` | `~/Music` | `/mnt/PlexMedia/Downloads/Music/` |
 
 ---
-*Document generat automàticament per Gemini CLI el 25/01/2026.*
+*Última actualització: 25/01/2026.*
