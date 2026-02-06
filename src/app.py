@@ -100,10 +100,21 @@ class TransmutatorApp(App):
             pass
 
     def _on_progress(self, percent: float, eta: str) -> None:
-        """Actualitza la barra de progrés (cridat des del worker)."""
+        """Actualitza la barra de progrés i l'ETA (cridat des del worker)."""
         try:
             bar = self.query_one("#progress-bar", ProgressBar)
             bar.update(progress=min(100, max(0, int(percent))))
+        except Exception:
+            pass
+        try:
+            label = self.query_one("#progress-label", Static)
+            current_name = "—"
+            for m in self.media_files:
+                if getattr(m, "_current", False):
+                    current_name = m.path.name
+                    break
+            eta_text = f"  |  ETA: {eta}" if eta else ""
+            label.update(f"  Progrés arxiu actual: {current_name}  |  {percent:.1f}%{eta_text}")
         except Exception:
             pass
 

@@ -9,14 +9,16 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 *   [x] Re-implementació de la lògica de conversió (Handbrake/FFmpeg) en Python usant `subprocess`.
 *   [x] Implementació del mòdul qBittorrent-api per al canvi de categoria.
 
-## Fase 1: TUI Bàsica i Progrés (v0.2 - v0.4) 🚧 EN CURS
+## Fase 1: TUI Bàsica i Progrés (v0.2 - v0.4) ✅ COMPLETADA
 *   [x] Disseny de l'esquelet de la TUI amb `Textual` (estil Pip-Boy / 4Xsample Industries).
 *   [x] Pantalla principal amb llista de fitxers i controls (Iniciar, Stop, Actualitzar).
 *   [x] Visualització de la llista de fitxers i estat global del procés (Fase, Total, Fets, Pendents).
 *   [x] Implementació del parser de `stdout` per mostrar el progrés en temps real (percentatge/ETA).
 *   [x] Worker thread per executar conversions sense bloquejar la UI.
 *   [x] Configuració YAML (`config.yaml`) amb suport per a totes les rutes i opcions.
-*   [ ] **Pendent**: Verificar i millorar parser de progrés HandBrake (pot no funcionar amb totes les versions).
+*   [x] Parser de progrés HandBrake robust (JSON `--json` + fallback text, threading per evitar deadlocks).
+*   [x] Parser de progrés FFmpeg real (duració via `ffprobe` + parsing `time=` de stderr).
+*   [x] Visualització d'ETA al label de progrés de la TUI.
 
 ## Fase 2: Control i Robustesa (v0.5 - v0.7)
 *   [ ] Gestió de cues: Moure arxius amunt/avall.
@@ -37,5 +39,5 @@ Aquest full de ruta detalla el desenvolupament incremental de l'aplicació Pytho
 *   [ ] Documentació final de l'usuari.
 
 ---
-*Última actualització: 25/01/2026.*  
-*Estat actual: Fase 1 en curs - TUI funcional amb pipeline de conversió. Parser de progrés HandBrake pot necessitar ajustos segons versió.*
+*Última actualització: 06/02/2026.*  
+*Estat actual: Fase 1 completada - TUI funcional amb pipeline de conversió, parsers de progrés robusts i ETA en temps real.*

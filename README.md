@@ -100,15 +100,15 @@ O directament: `python -m src.app`. Tancar amb **q**.
 - [x] Lògica de conversió (HandBrake/FFmpeg)
 - [x] Integració qBittorrent API
 
-### 🚧 Fase 1 (v0.2-0.4) - En curs
+### ✅ Fase 1 (v0.2-0.4) - Completada
 - [x] TUI bàsica amb Textual (estil Pip-Boy / 4Xsample Industries)
-- [x] Visualització de progrés en temps real (barra + arxiu actual)
+- [x] Visualització de progrés en temps real (barra + arxiu actual + ETA)
 - [x] Llista de fitxers enllaçada a detecció i pipeline (Iniciar / Stop)
 - [x] Configuració YAML (`config.yaml`) amb valors per defecte
-- [x] Parser de progrés HandBrake (JSON + fallback text)
+- [x] Parser de progrés HandBrake robust (JSON `--json` + fallback text, threading)
+- [x] Parser de progrés FFmpeg real (duració via `ffprobe` + `time=` de stderr)
 
-### ⚠️ Problemes coneguts / Pendents
-- **Progrés HandBrake**: El parser JSON pot no funcionar amb totes les versions de HandBrakeCLI. Si la barra de progrés no es mou, cal verificar l'output real de HandBrake i ajustar el parser.
+### ⚠️ Pendents (Fase 2+)
 - **Pausa**: Botó implementat però funcionalitat no completada (Fase 2).
 - **Stop**: Atura després de l'arxiu actual; aturada immediata (kill subprocess) pendent (Fase 2).
 - **Fase Extract/Load**: Només està implementada la fase Transform (conversió). Les fases Extract (còpia a TMP) i Load (enviament a Plex) queden per implementar.
