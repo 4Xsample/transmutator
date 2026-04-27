@@ -2,14 +2,16 @@
 Report generation for Transmutator V2.
 
 Provides structured report data, Rich-markup TUI rendering,
-and Markdown export for pipeline execution results.
+Markdown export, and JSON-serializable report payloads for pipeline execution
+results.
 """
 
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from .converter import ConversionResult
 from .file_detector import MediaFile
@@ -30,12 +32,14 @@ class ReportData:
         extract_total: int = 0,
         load_done: int = 0,
         load_total: int = 0,
+        qbittorrent_actions: Optional[List[Dict[str, Any]]] = None,
     ):
         self.results = results
         self.extract_done = extract_done
         self.extract_total = extract_total
         self.load_done = load_done
         self.load_total = load_total
+        self.qbittorrent_actions = qbittorrent_actions or []
         self.timestamp = datetime.now()
 
     @property
@@ -67,6 +71,76 @@ class ReportData:
         if self.total_original_size == 0:
             return 0.0
         return (self.space_saved / self.total_original_size) * 100.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return a JSON-serializable representation of the report."""
+        by_category: Dict[str, Dict[str, int]] = {}
+        media_types: Dict[str, int] = {}
+        for mf, cr in self.results:
+            bucket = by_category.setdefault(
+                mf.category,
+                {
+                    "successes": 0,
+                    "failures": 0,
+                    "original_size": 0,
+                    "output_size": 0,
+                    "duration_seconds": 0,
+                },
+            )
+            key = "successes" if cr.success else "failures"
+            bucket[key] += 1
+            bucket["original_size"] += cr.original_size or 0
+            bucket["duration_seconds"] += int(cr.duration_seconds or 0)
+            if cr.success:
+                bucket["output_size"] += cr.output_size or 0
+            media_key = mf.media_type.value
+            media_types[media_key] = media_types.get(media_key, 0) + 1
+
+        success_rate = 0.0
+        if self.results:
+            success_rate = (len(self.successes) / len(self.results)) * 100.0
+
+        return {
+            "timestamp": self.timestamp.isoformat(),
+            "extract_done": self.extract_done,
+            "extract_total": self.extract_total,
+            "load_done": self.load_done,
+            "load_total": self.load_total,
+            "summary": {
+                "total_results": len(self.results),
+                "successes": len(self.successes),
+                "failures": len(self.failures),
+                "success_rate": success_rate,
+                "total_original_size": self.total_original_size,
+                "total_output_size": self.total_output_size,
+                "total_duration": self.total_duration,
+                "space_saved": self.space_saved,
+                "compression_ratio": self.compression_ratio,
+            },
+            "by_category": by_category,
+            "media_types": media_types,
+            "qbittorrent": {
+                "enabled": bool(self.qbittorrent_actions),
+                "successes": sum(1 for item in self.qbittorrent_actions if item.get("success")),
+                "failures": sum(1 for item in self.qbittorrent_actions if not item.get("success")),
+                "actions": self.qbittorrent_actions,
+            },
+            "results": [
+                {
+                    "name": mf.path.name,
+                    "path": str(mf.path),
+                    "category": mf.category,
+                    "media_type": mf.media_type.value,
+                    "success": cr.success,
+                    "error": cr.error,
+                    "duration_seconds": cr.duration_seconds,
+                    "original_size": cr.original_size,
+                    "output_size": cr.output_size,
+                    "output_path": str(cr.output_path) if cr.output_path else None,
+                }
+                for mf, cr in self.results
+            ],
+        }
 
 
 # ── Helpers ──────────────────────────────────────────────────────────
@@ -230,6 +304,10 @@ def generate_report_markdown(data: ReportData) -> str:
         lines.append(
             f"**Càrrega a Plex:** {data.load_done}/{data.load_total} fitxers enviats"
         )
+    if data.qbittorrent_actions:
+        qbt_ok = sum(1 for item in data.qbittorrent_actions if item.get("success"))
+        qbt_fail = sum(1 for item in data.qbittorrent_actions if not item.get("success"))
+        lines.append(f"**qBittorrent:** {qbt_ok} canvis correctes | {qbt_fail} errors")
     lines.append("")
 
     # ── Successes ──
@@ -274,6 +352,18 @@ def generate_report_markdown(data: ReportData) -> str:
         f"- **Espai estalviat:** {format_size(data.space_saved)} "
         f"({data.compression_ratio:.1f}%)"
     )
+    if data.qbittorrent_actions:
+        lines.append("")
+        lines.append("## qBittorrent")
+        lines.append("")
+        lines.append("| Fitxer | Resultat | Categoria origen | Categoria destí | Error |")
+        lines.append("|--------|----------|------------------|-----------------|-------|")
+        for item in data.qbittorrent_actions:
+            result = "OK" if item.get("success") else "ERROR"
+            err = str(item.get("error") or "—").replace("|", "\\|")[:120]
+            lines.append(
+                f"| {item.get('media_name', '—')} | {result} | {item.get('source_category', '—')} | {item.get('target_category', '—')} | {err} |"
+            )
     lines.append("")
     lines.append("---")
     lines.append("*Generat per Transmutator V2 — 4Xsample Industries (tm)*")
@@ -293,3 +383,66 @@ def save_report(data: ReportData, directory: Optional[Path] = None) -> Path:
     filepath = directory / f"transmutator_report_{ts}.md"
     filepath.write_text(generate_report_markdown(data), encoding="utf-8")
     return filepath
+
+
+def save_report_json(
+    data: ReportData,
+    directory: Optional[Path] = None,
+    extra: Optional[Dict[str, Any]] = None,
+) -> Path:
+    """Save the report as JSON. Returns the file path."""
+    if directory is None:
+        directory = Path.home()
+    directory.mkdir(parents=True, exist_ok=True)
+    ts = data.timestamp.strftime("%Y%m%d_%H%M%S")
+    filepath = directory / f"transmutator_report_{ts}.json"
+    payload = data.to_dict()
+    if extra:
+        payload["runtime"] = extra
+    filepath.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    return filepath
+
+
+def load_report_json(filepath: Path) -> Dict[str, Any]:
+    """Load a persisted JSON report from disk."""
+    return json.loads(filepath.read_text(encoding="utf-8"))
+
+
+def list_reports(
+    directory: Optional[Path] = None,
+    limit: int = 20,
+) -> List[Dict[str, Any]]:
+    """Return newest persisted JSON reports with compact metadata."""
+    if directory is None:
+        directory = Path.home()
+    if not directory.exists():
+        return []
+
+    reports: List[Dict[str, Any]] = []
+    json_files = sorted(
+        directory.glob("transmutator_report_*.json"),
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+    for filepath in json_files[:limit]:
+        payload = load_report_json(filepath)
+        runtime = payload.get("runtime") or {}
+        summary = payload.get("summary") or {}
+        reports.append(
+            {
+                "id": filepath.stem,
+                "timestamp": payload.get("timestamp"),
+                "pipeline_state": runtime.get("pipeline_state", "unknown"),
+                "successes": summary.get("successes", 0),
+                "failures": summary.get("failures", 0),
+                "total_results": summary.get("total_results", 0),
+                "space_saved": summary.get("space_saved", 0),
+                "total_duration": summary.get("total_duration", 0),
+                "extract_done": payload.get("extract_done", 0),
+                "extract_total": payload.get("extract_total", 0),
+                "load_done": payload.get("load_done", 0),
+                "load_total": payload.get("load_total", 0),
+                "json_path": str(filepath),
+            }
+        )
+    return reports

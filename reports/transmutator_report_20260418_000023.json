@@ -1,0 +1,201 @@
+{
+  "timestamp": "2026-04-18T00:00:23.185863",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 6,
+    "successes": 6,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 40035968651,
+    "total_output_size": 7128983755,
+    "total_duration": 8915.940103054047,
+    "space_saved": 32906984896,
+    "compression_ratio": 82.19355245992797
+  },
+  "by_category": {
+    "radarr": {
+      "successes": 1,
+      "failures": 0,
+      "original_size": 21202719008,
+      "output_size": 5151646013,
+      "duration_seconds": 4688
+    },
+    "tv-sonarr": {
+      "successes": 5,
+      "failures": 0,
+      "original_size": 18833249643,
+      "output_size": 1977337742,
+      "duration_seconds": 4224
+    }
+  },
+  "media_types": {
+    "video": 6
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 6,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "Street Fighter - La leyenda (2009) [BDRemux AVC 1080P][DTS-HD 5.1 Esp AC-3 5.1 eng Subs][HD-Olimpo Club].mkv",
+        "torrent_name": "Street Fighter - La leyenda (2009) [BDRemux AVC 1080P][DTS-HD 5.1 Esp AC-3 5.1 eng Subs][HD-Olimpo Club].mkv",
+        "torrent_hash": "b7584b25362c5b90e9f6dc246eafb5b7c1cc70e8",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Monarch El legado de los monstruos S02E08 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Monarch El legado de los monstruos S02E08 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "e9015866351ba6d398b210ae7af559f02c27402a",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Para toda la humanidad S05E04 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+        "torrent_name": "Para toda la humanidad S05E04 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+        "torrent_hash": "2ca8a9a052c227a52a2d90fcfb42a94f113ebfbd",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The Pitt S02E15 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "The Pitt S02E15 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "aadbf3ebcecd3cfc51b363790b047e47efd5eb19",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Your Friends and Neighbours S02E03 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Your Friends and Neighbours S02E03 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "77a9dc9dda4f2f67a9275e264a8e26722bbc202d",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The.Daily.Show.2026.04.16.Lee.Sun.Jin.1080p.WEB.h264-EDITH.mkv",
+        "torrent_name": "The Daily Show 2026 04 16 Lee Sun Jin 1080p WEB h264-EDITH [ UIndex.org ]",
+        "torrent_hash": "f03fd82198f96363952064a292326aa7c798e05c",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "Street Fighter - La leyenda (2009) [BDRemux AVC 1080P][DTS-HD 5.1 Esp AC-3 5.1 eng Subs][HD-Olimpo Club].mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Street Fighter - La leyenda (2009) [BDRemux AVC 1080P][DTS-HD 5.1 Esp AC-3 5.1 eng Subs][HD-Olimpo Club].mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4688.531749725342,
+      "original_size": 21202719008,
+      "output_size": 5151646013,
+      "output_path": "/home/rossell_j/Videos/radarr/Street Fighter - La leyenda (2009) [BDRemux AVC 1080P][DTS-HD 5.1 Esp AC-3 5.1 eng Subs][HD-Olimpo Club].mkv"
+    },
+    {
+      "name": "Monarch El legado de los monstruos S02E08 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Monarch El legado de los monstruos S02E08 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 735.6387174129486,
+      "original_size": 3413203950,
+      "output_size": 399403197,
+      "output_path": "/home/rossell_j/Videos/sonarr/Monarch El legado de los monstruos S02E08 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "Para toda la humanidad S05E04 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Para toda la humanidad S05E04 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 966.2807478904724,
+      "original_size": 4701198638,
+      "output_size": 420123513,
+      "output_path": "/home/rossell_j/Videos/sonarr/Para toda la humanidad S05E04 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv"
+    },
+    {
+      "name": "The Pitt S02E15 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/The Pitt S02E15 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 957.8794453144073,
+      "original_size": 3526315514,
+      "output_size": 529801115,
+      "output_path": "/home/rossell_j/Videos/sonarr/The Pitt S02E15 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Your Friends and Neighbours S02E03 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Your Friends and Neighbours S02E03 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 849.6294536590576,
+      "original_size": 4568173133,
+      "output_size": 384917318,
+      "output_path": "/home/rossell_j/Videos/sonarr/Your Friends and Neighbours S02E03 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "The.Daily.Show.2026.04.16.Lee.Sun.Jin.1080p.WEB.h264-EDITH.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/www.UIndex.org    -    The.Daily.Show.2026.04.16.Lee.Sun.Jin.1080p.WEB.h264-EDITH/The.Daily.Show.2026.04.16.Lee.Sun.Jin.1080p.WEB.h264-EDITH.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 717.9799890518188,
+      "original_size": 2624358408,
+      "output_size": 243092599,
+      "output_path": "/home/rossell_j/Videos/sonarr/www.UIndex.org    -    The.Daily.Show.2026.04.16.Lee.Sun.Jin.1080p.WEB.h264-EDITH/The.Daily.Show.2026.04.16.Lee.Sun.Jin.1080p.WEB.h264-EDITH.mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1776453881.1772075,
+    "finished_at": 1776463223.185772,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

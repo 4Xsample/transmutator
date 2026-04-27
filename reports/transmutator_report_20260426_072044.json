@@ -1,0 +1,245 @@
+{
+  "timestamp": "2026-04-26T07:20:44.717491",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 8,
+    "successes": 8,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 70613954269,
+    "total_output_size": 11346429237,
+    "total_duration": 12394.241681098938,
+    "space_saved": 59267525032,
+    "compression_ratio": 83.93174641689602
+  },
+  "by_category": {
+    "radarr": {
+      "successes": 2,
+      "failures": 0,
+      "original_size": 50714155161,
+      "output_size": 9202656526,
+      "duration_seconds": 8381
+    },
+    "tv-sonarr": {
+      "successes": 6,
+      "failures": 0,
+      "original_size": 19899799108,
+      "output_size": 2143772711,
+      "duration_seconds": 4009
+    }
+  },
+  "media_types": {
+    "video": 8
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 8,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "Shoot 'Em Up (En el punto de mira) (2007) [BDRemux 1080p VC1 Dual DTS-HD MA 7.1 Subs] [HDOlimpo].mkv",
+        "torrent_name": "Shoot 'Em Up (En el punto de mira) (2007) [BDRemux 1080p VC1 Dual DTS-HD MA 7.1 Subs] [HDOlimpo].mkv",
+        "torrent_hash": "ee75c155c36b1539a493cbefc2ce29a73006a5ac",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Siete psicópatas (2012) [BDRemux 1080p AVC ES CA EN DTS-HD MA 5.1 Subs][HDO].mkv",
+        "torrent_name": "Siete psicópatas (2012) [BDRemux 1080p AVC ES CA EN DTS-HD MA 5.1 Subs][HDO].mkv",
+        "torrent_hash": "87cb406b6bb9b1c88f9a7cab08e7ad3a2bd29b1b",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "High Potential Detective Inesperada S02E16 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "High Potential Detective Inesperada S02E16 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "95cfdb0d0bed27337cec3271ac3f180a5e4c0539",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Monarch El legado de los monstruos S02E09 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Monarch El legado de los monstruos S02E09 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "b5cd850e55bf7c122d8ab18d2d729cc4ebc9e1e6",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Para toda la humanidad S05E05 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+        "torrent_name": "Para toda la humanidad S05E05 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+        "torrent_hash": "4b1a72397d9a5410afb658a2316f5ace15fe7827",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "That Time I Got Reincarnated as a Slime S04E01 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+        "torrent_name": "That Time I Got Reincarnated as a Slime S04E01 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+        "torrent_hash": "8240f304cd54a506b7efdd43ab59963f5cea0121",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Your Friends and Neighbours S02E04 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Your Friends and Neighbours S02E04 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "649f904d7a21533b6e4d84961bb99bd77c169f0a",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The.Daily.Show.2026.04.23.Ben.McKenzie.1080p.WEB.h264-EDITH.mkv",
+        "torrent_name": "The Daily Show 2026 04 23 Ben McKenzie 1080p WEB h264-EDITH [ UIndex.org ]",
+        "torrent_hash": "a36b1ae41ba5a7a017e05f8fcf1c47a081144335",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "Shoot 'Em Up (En el punto de mira) (2007) [BDRemux 1080p VC1 Dual DTS-HD MA 7.1 Subs] [HDOlimpo].mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Shoot 'Em Up (En el punto de mira) (2007) [BDRemux 1080p VC1 Dual DTS-HD MA 7.1 Subs] [HDOlimpo].mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3970.9162662029266,
+      "original_size": 22842483064,
+      "output_size": 4388958118,
+      "output_path": "/home/rossell_j/Videos/radarr/Shoot 'Em Up (En el punto de mira) (2007) [BDRemux 1080p VC1 Dual DTS-HD MA 7.1 Subs] [HDOlimpo].mkv"
+    },
+    {
+      "name": "Siete psicópatas (2012) [BDRemux 1080p AVC ES CA EN DTS-HD MA 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Siete psicópatas (2012) [BDRemux 1080p AVC ES CA EN DTS-HD MA 5.1 Subs][HDO].mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4411.844968795776,
+      "original_size": 27871672097,
+      "output_size": 4813698408,
+      "output_path": "/home/rossell_j/Videos/radarr/Siete psicópatas (2012) [BDRemux 1080p AVC ES CA EN DTS-HD MA 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "High Potential Detective Inesperada S02E16 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/High Potential Detective Inesperada S02E16 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 732.2304577827454,
+      "original_size": 3171111832,
+      "output_size": 415507625,
+      "output_path": "/home/rossell_j/Videos/sonarr/High Potential Detective Inesperada S02E16 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Monarch El legado de los monstruos S02E09 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Monarch El legado de los monstruos S02E09 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 792.1791949272156,
+      "original_size": 3730089075,
+      "output_size": 553437435,
+      "output_path": "/home/rossell_j/Videos/sonarr/Monarch El legado de los monstruos S02E09 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "Para toda la humanidad S05E05 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Para toda la humanidad S05E05 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 776.4528722763062,
+      "original_size": 4399267994,
+      "output_size": 382305019,
+      "output_path": "/home/rossell_j/Videos/sonarr/Para toda la humanidad S05E05 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv"
+    },
+    {
+      "name": "That Time I Got Reincarnated as a Slime S04E01 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/That Time I Got Reincarnated as a Slime S04E01 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 353.6184124946594,
+      "original_size": 1501007014,
+      "output_size": 157754005,
+      "output_path": "/home/rossell_j/Videos/sonarr/That Time I Got Reincarnated as a Slime S04E01 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv"
+    },
+    {
+      "name": "Your Friends and Neighbours S02E04 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Your Friends and Neighbours S02E04 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 843.236114025116,
+      "original_size": 4893616944,
+      "output_size": 433414085,
+      "output_path": "/home/rossell_j/Videos/sonarr/Your Friends and Neighbours S02E04 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "The.Daily.Show.2026.04.23.Ben.McKenzie.1080p.WEB.h264-EDITH.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/www.UIndex.org    -    The.Daily.Show.2026.04.23.Ben.McKenzie.1080p.WEB.h264-EDITH/The.Daily.Show.2026.04.23.Ben.McKenzie.1080p.WEB.h264-EDITH.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 513.7633945941925,
+      "original_size": 2204706249,
+      "output_size": 201354542,
+      "output_path": "/home/rossell_j/Videos/sonarr/www.UIndex.org    -    The.Daily.Show.2026.04.23.Ben.McKenzie.1080p.WEB.h264-EDITH/The.Daily.Show.2026.04.23.Ben.McKenzie.1080p.WEB.h264-EDITH.mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1777167055.4531362,
+    "finished_at": 1777180844.7173746,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

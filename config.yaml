@@ -1,0 +1,26 @@
+qbittorrent:
+  enabled: true
+  host: http://192.168.2.11
+  port: 8080
+  url: http://192.168.2.11:8080
+  username: ''
+  password: ''
+  processed_category: Processat
+  modify_torrent_category: true
+categories:
+  lidarr: lidarr
+  tv-sonarr: tv-sonarr
+  radarr: radarr
+pipeline_selection:
+  lidarr:
+    importar: true
+    convertir: true
+    enviar: true
+  tv-sonarr:
+    importar: true
+    convertir: true
+    enviar: true
+  radarr:
+    importar: true
+    convertir: true
+    enviar: true

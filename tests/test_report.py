@@ -11,7 +11,10 @@ from src.report import (
     build_report_tui,
     fmt_duration,
     generate_report_markdown,
+    list_reports,
+    load_report_json,
     save_report,
+    save_report_json,
 )
 
 
@@ -123,6 +126,15 @@ class TestReportData:
     def test_timestamp_set(self):
         rd = ReportData(results=[])
         assert rd.timestamp is not None
+
+    def test_to_dict_includes_richer_breakdown(self):
+        rd = ReportData(results=_sample_results())
+        payload = rd.to_dict()
+        assert payload["summary"]["success_rate"] == pytest.approx(75.0)
+        assert payload["by_category"]["radarr"]["successes"] == 1
+        assert payload["by_category"]["radarr"]["failures"] == 1
+        assert payload["media_types"]["video"] == 3
+        assert payload["media_types"]["audio"] == 1
 
 
 # ── build_report_tui ─────────────────────────────────────────────────
@@ -297,3 +309,34 @@ class TestSaveReport:
         assert filepath.exists()
         content = filepath.read_text(encoding="utf-8")
         assert len(content) > 50
+
+
+class TestSaveReportJson:
+    def test_creates_json_file(self, tmp_path):
+        rd = ReportData(results=_sample_results())
+        filepath = save_report_json(rd, directory=tmp_path)
+        assert filepath.exists()
+        assert filepath.suffix == ".json"
+
+    def test_contains_summary_and_results(self, tmp_path):
+        rd = ReportData(results=_sample_results())
+        filepath = save_report_json(rd, directory=tmp_path, extra={"pipeline_state": "completed"})
+        content = filepath.read_text(encoding="utf-8")
+        assert '"summary"' in content
+        assert '"results"' in content
+        assert '"pipeline_state": "completed"' in content
+
+    def test_load_report_json_round_trip(self, tmp_path):
+        rd = ReportData(results=_sample_results())
+        filepath = save_report_json(rd, directory=tmp_path, extra={"pipeline_state": "completed"})
+        payload = load_report_json(filepath)
+        assert payload["runtime"]["pipeline_state"] == "completed"
+        assert payload["summary"]["total_results"] == 4
+
+    def test_list_reports_returns_saved_reports(self, tmp_path):
+        rd = ReportData(results=_sample_results())
+        filepath = save_report_json(rd, directory=tmp_path, extra={"pipeline_state": "completed"})
+        reports = list_reports(tmp_path, limit=10)
+        assert len(reports) == 1
+        assert reports[0]["id"] == filepath.stem
+        assert reports[0]["pipeline_state"] == "completed"

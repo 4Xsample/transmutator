@@ -11,7 +11,7 @@ import shutil
 import subprocess
 import threading
 from pathlib import Path
-from typing import Optional, Callable, List, Tuple
+from typing import Optional, Callable, List, Sequence, Tuple
 import logging
 
 from .config import Config
@@ -156,9 +156,15 @@ class ExtractPhase:
             return PipelinePhase(success=False, files_transferred=count, error=str(e))
 
     @classmethod
-    def extract_all(cls, progress_callback: Optional[TransferCB] = None, process_handle=None) -> PipelinePhase:
+    def extract_all(
+        cls,
+        progress_callback: Optional[TransferCB] = None,
+        process_handle=None,
+        categories: Optional[Sequence[str]] = None,
+    ) -> PipelinePhase:
+        cats = categories if categories is not None else list(Config.TORRENT_CATEGORIES.values())
         total, errors = 0, []
-        for cat in Config.TORRENT_CATEGORIES.values():
+        for cat in cats:
             r = cls.extract_category(cat, progress_callback, process_handle)
             total += r.files_transferred
             if not r.success and r.error:
@@ -262,9 +268,15 @@ class LoadPhase:
             return PipelinePhase(success=False, files_transferred=count, error=str(e))
 
     @classmethod
-    def load_all(cls, progress_callback: Optional[TransferCB] = None, process_handle=None) -> PipelinePhase:
+    def load_all(
+        cls,
+        progress_callback: Optional[TransferCB] = None,
+        process_handle=None,
+        categories: Optional[Sequence[str]] = None,
+    ) -> PipelinePhase:
+        cats = categories if categories is not None else list(Config.TORRENT_CATEGORIES.values())
         total, errors = 0, []
-        for cat in Config.TORRENT_CATEGORIES.values():
+        for cat in cats:
             r = cls.load_category(cat, progress_callback, process_handle)
             total += r.files_transferred
             if not r.success and r.error:

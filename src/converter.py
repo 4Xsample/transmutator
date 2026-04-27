@@ -783,6 +783,25 @@ class AudioConverter:
 class MediaConverter:
     """Main converter class that routes to appropriate converter."""
 
+    @staticmethod
+    def _default_output_path(media_file: MediaFile) -> Path:
+        """Build the default output path, preserving relative folder structure."""
+        output_dir = Config.get_output_path(media_file.category)
+        target_name = media_file.path.name
+        if (
+            media_file.media_type == MediaType.AUDIO
+            and media_file.path.suffix.lower() in Config.AUDIO_LOSSLESS_EXTENSIONS
+        ):
+            target_name = f"{media_file.path.stem}.{Config.AUDIO_TARGET_FORMAT}"
+
+        try:
+            relative = media_file.path.relative_to(Config.get_tmp_path(media_file.category))
+            parent = relative.parent
+        except ValueError:
+            parent = Path()
+
+        return output_dir / parent / target_name
+
     @classmethod
     def convert(
         cls,
@@ -804,11 +823,7 @@ class MediaConverter:
             ConversionResult object
         """
         if output_path is None:
-            output_dir = Config.get_output_path(media_file.category)
-            if media_file.media_type == MediaType.AUDIO and media_file.path.suffix.lower() in Config.AUDIO_LOSSLESS_EXTENSIONS:
-                output_path = output_dir / (media_file.path.stem + "." + Config.AUDIO_TARGET_FORMAT)
-            else:
-                output_path = output_dir / media_file.path.name
+            output_path = cls._default_output_path(media_file)
 
         if media_file.media_type == MediaType.VIDEO:
             return VideoConverter.convert(

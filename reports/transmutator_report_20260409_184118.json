@@ -1,0 +1,312 @@
+{
+  "timestamp": "2026-04-09T18:41:18.019893",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 16,
+    "successes": 16,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 8043331995,
+    "total_output_size": 1353015161,
+    "total_duration": 2364.395961999893,
+    "space_saved": 6690316834,
+    "compression_ratio": 83.1784245404631
+  },
+  "by_category": {
+    "lidarr": {
+      "successes": 12,
+      "failures": 0,
+      "original_size": 1087737148,
+      "output_size": 123565635,
+      "duration_seconds": 36
+    },
+    "tv-sonarr": {
+      "successes": 4,
+      "failures": 0,
+      "original_size": 6955594847,
+      "output_size": 1229449526,
+      "duration_seconds": 2318
+    }
+  },
+  "media_types": {
+    "audio": 12,
+    "video": 4
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 5,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "01. Depeche Mode - My Cosmos Is Mine.flac",
+        "torrent_name": "Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96] Repack [ UIndex.org ]",
+        "torrent_hash": "c71022a030b2106a32f49613427c2db632fa0595",
+        "source_category": "lidarr",
+        "target_category": "Processat",
+        "state": "uploading",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Daredevil.Born.Again.S02e04.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv",
+        "torrent_name": "Daredevil Born Again S02e04 [1080p Ita Eng Spa h265 10bit SubS] byMe7alh [MIRCre",
+        "torrent_hash": "a2f8e59394c80a01fee733f8a312720859ff07c0",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "uploading",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+        "torrent_name": "Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+        "torrent_hash": "ff27e3b2d819db5610ed620845a9c54bb7c9e04d",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "uploading",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "6eaaf82839a4584a7ac48ff4bf6d4a9ed75cf682",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Shrinking S03E11 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Shrinking S03E11 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "507bebc123346797dccae98845689188f991b131",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "01. Depeche Mode - My Cosmos Is Mine.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/01. Depeche Mode - My Cosmos Is Mine.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4.7265119552612305,
+      "original_size": 114630345,
+      "output_size": 12887058,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/01. Depeche Mode - My Cosmos Is Mine.mp3"
+    },
+    {
+      "name": "02. Depeche Mode - Wagging Tongue.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/02. Depeche Mode - Wagging Tongue.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 2.9255428314208984,
+      "original_size": 74119279,
+      "output_size": 8397135,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/02. Depeche Mode - Wagging Tongue.mp3"
+    },
+    {
+      "name": "03. Depeche Mode - Ghosts Again.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/03. Depeche Mode - Ghosts Again.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.4451987743377686,
+      "original_size": 89617712,
+      "output_size": 9768973,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/03. Depeche Mode - Ghosts Again.mp3"
+    },
+    {
+      "name": "04. Depeche Mode - Don't Say You Love Me.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/04. Depeche Mode - Don't Say You Love Me.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.432474136352539,
+      "original_size": 81960188,
+      "output_size": 9350422,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/04. Depeche Mode - Don't Say You Love Me.mp3"
+    },
+    {
+      "name": "05. Depeche Mode - My Favourite Stranger.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/05. Depeche Mode - My Favourite Stranger.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.4900240898132324,
+      "original_size": 85677914,
+      "output_size": 9702742,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/05. Depeche Mode - My Favourite Stranger.mp3"
+    },
+    {
+      "name": "06. Depeche Mode - Soul With Me.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/06. Depeche Mode - Soul With Me.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.678574562072754,
+      "original_size": 89932029,
+      "output_size": 10411213,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/06. Depeche Mode - Soul With Me.mp3"
+    },
+    {
+      "name": "07. Depeche Mode - Caroline's Monkey.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/07. Depeche Mode - Caroline's Monkey.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.831528663635254,
+      "original_size": 90024843,
+      "output_size": 10474578,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/07. Depeche Mode - Caroline's Monkey.mp3"
+    },
+    {
+      "name": "08. Depeche Mode - Before We Drown.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/08. Depeche Mode - Before We Drown.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.734112501144409,
+      "original_size": 88258254,
+      "output_size": 10019536,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/08. Depeche Mode - Before We Drown.mp3"
+    },
+    {
+      "name": "09. Depeche Mode - People Are Good.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/09. Depeche Mode - People Are Good.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.77774715423584,
+      "original_size": 91947029,
+      "output_size": 10772176,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/09. Depeche Mode - People Are Good.mp3"
+    },
+    {
+      "name": "10. Depeche Mode - Always You.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/10. Depeche Mode - Always You.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.9085140228271484,
+      "original_size": 91932705,
+      "output_size": 10569612,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/10. Depeche Mode - Always You.mp3"
+    },
+    {
+      "name": "11. Depeche Mode - Never Let Me Go.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/11. Depeche Mode - Never Let Me Go.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.5553886890411377,
+      "original_size": 90531617,
+      "output_size": 9964817,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/11. Depeche Mode - Never Let Me Go.mp3"
+    },
+    {
+      "name": "12. Depeche Mode - Speak To Me.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/12. Depeche Mode - Speak To Me.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.964118719100952,
+      "original_size": 99105233,
+      "output_size": 11247373,
+      "output_path": "/home/rossell_j/Music/Depeche Mode - Memento Mori (2023 Synth pop) [Flac 24-96]/12. Depeche Mode - Speak To Me.mp3"
+    },
+    {
+      "name": "Daredevil.Born.Again.S02e04.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Daredevil.Born.Again.S02e04.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 752.4138400554657,
+      "original_size": 801453187,
+      "output_size": 398699323,
+      "output_path": "/home/rossell_j/Videos/sonarr/Daredevil.Born.Again.S02e04.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv"
+    },
+    {
+      "name": "Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 369.6526424884796,
+      "original_size": 1504652699,
+      "output_size": 176322500,
+      "output_path": "/home/rossell_j/Videos/sonarr/Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv"
+    },
+    {
+      "name": "Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 646.245046377182,
+      "original_size": 1641545325,
+      "output_size": 340721493,
+      "output_path": "/home/rossell_j/Videos/sonarr/Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Shrinking S03E11 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Shrinking S03E11 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 551.6146969795227,
+      "original_size": 3007943636,
+      "output_size": 313706210,
+      "output_path": "/home/rossell_j/Videos/sonarr/Shrinking S03E11 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775750395.5637498,
+    "finished_at": 1775752878.0198827,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

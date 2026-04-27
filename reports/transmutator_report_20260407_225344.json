@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-04-07T22:53:44.565197",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 0,
+    "successes": 0,
+    "failures": 0,
+    "success_rate": 0.0,
+    "total_original_size": 0,
+    "total_output_size": 0,
+    "total_duration": 0,
+    "space_saved": 0,
+    "compression_ratio": 0.0
+  },
+  "by_category": {},
+  "media_types": {},
+  "qbittorrent": {
+    "enabled": false,
+    "successes": 0,
+    "failures": 0,
+    "actions": []
+  },
+  "results": [],
+  "runtime": {
+    "pipeline_state": "error",
+    "last_error": "rsync rc=-9: ",
+    "started_at": 1775595223.2908034,
+    "finished_at": 1775595224.5649755,
+    "selection": {
+      "lidarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      },
+      "tv-sonarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

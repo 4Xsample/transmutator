@@ -14,3 +14,7 @@ pyyaml>=6.0
 
 # Optional: for better subprocess handling
 psutil>=5.9.0
+
+# Web UI server (Fase 5)
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0

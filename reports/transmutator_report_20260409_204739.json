@@ -1,0 +1,84 @@
+{
+  "timestamp": "2026-04-09T20:47:39.769056",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 1,
+    "successes": 1,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 2224495012,
+    "total_output_size": 420241719,
+    "total_duration": 886.9581973552704,
+    "space_saved": 1804253293,
+    "compression_ratio": 81.10844408582562
+  },
+  "by_category": {
+    "tv-sonarr": {
+      "successes": 1,
+      "failures": 0,
+      "original_size": 2224495012,
+      "output_size": 420241719,
+      "duration_seconds": 886
+    }
+  },
+  "media_types": {
+    "video": 1
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 1,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "Daredevil Born Again S02E04 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "Daredevil Born Again S02E04 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "28a5c19dfb2b211a1c8b91dfbc585639da6d12c5",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "Daredevil Born Again S02E04 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Daredevil Born Again S02E04 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 886.9581973552704,
+      "original_size": 2224495012,
+      "output_size": 420241719,
+      "output_path": "/home/rossell_j/Videos/sonarr/Daredevil Born Again S02E04 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775759541.8228014,
+    "finished_at": 1775760459.768905,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

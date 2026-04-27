@@ -8,6 +8,7 @@ For now, it provides basic validation and testing functionality.
 import sys
 from pathlib import Path
 from .config import Config
+from .doctor import render_diagnostics
 from .file_detector import FileDetector
 from .qbittorrent import QBittorrentClient
 
@@ -86,6 +87,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] in ("--tui", "-t"):
         from .app import run_app
         run_app()
+    elif len(sys.argv) > 1 and sys.argv[1] in ("doctor", "--doctor"):
+        print(render_diagnostics())
+    elif len(sys.argv) > 1 and sys.argv[1] in ("web", "--web"):
+        from .web_server import run_server
+        run_server()
     elif len(sys.argv) > 1 and sys.argv[1] == "test":
         test_file_detection()
     else:

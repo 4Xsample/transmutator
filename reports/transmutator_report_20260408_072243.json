@@ -1,0 +1,370 @@
+{
+  "timestamp": "2026-04-08T07:22:43.155884",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 14,
+    "successes": 14,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 41775241051,
+    "total_output_size": 5545582086,
+    "total_duration": 10716.23118686676,
+    "space_saved": 36229658965,
+    "compression_ratio": 86.72519428618054
+  },
+  "by_category": {
+    "tv-sonarr": {
+      "successes": 14,
+      "failures": 0,
+      "original_size": 41775241051,
+      "output_size": 5545582086,
+      "duration_seconds": 10707
+    }
+  },
+  "media_types": {
+    "video": 14
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 14,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "761fb0d0a6265a89053ec9f6fe46b0c90ad12ab0",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Shrinking S03E10 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Shrinking S03E10 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "e3cd4ce168850b035f4b597b10012e1c96510183",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Invencible S04E05 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "Invencible S04E05 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "8a83f7f5c239a35fe7b230344876671dcadd7f3f",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Dr. Stone S04E25 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+        "torrent_name": "Dr. Stone S04E25 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+        "torrent_hash": "39f3490dc677c9b55e97db8542f7097e40fabbbc",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Monarch El legado de los monstruos S02E06 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Monarch El legado de los monstruos S02E06 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "9342c9ee42ab6cd675b7ab0842f1f1d88e229bac",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Daredevil Born Again S02E02 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "Daredevil Born Again S02E02 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "91019f2b071b114fa6087d667e5ac4b079ca4398",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Star Trek - Academia de la Flota Estelar S01E10 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "Star Trek - Academia de la Flota Estelar S01E10 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "e15e21b154ccc3fd3785c5a217197bf13c6eaf57",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Daredevil Born Again S02E03 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "Daredevil Born Again S02E03 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "c3bfd0a42984a38457a6938643199bcb6dc7c1fd",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The Pitt S02E13 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "The Pitt S02E13 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "4dce99eefcdfbffa7dcaf1cc1686b98330ce92c8",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Your Friends and Neighbours S02E01 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Your Friends and Neighbours S02E01 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "b2bcc7360b3cd4201ec1d9f48f9d96f9aa3c6af1",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Para toda la humanidad S05E02 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+        "torrent_name": "Para toda la humanidad S05E02 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+        "torrent_hash": "7636ebe7a3d148b4bcd1ba50d0c0919bc5f232a1",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The.Daily.Show.2026.04.01.Mary.Claire.Haver.720p.WEB.h264-EDITH.mkv",
+        "torrent_name": "The Daily Show 2026 04 01 Mary Claire Haver 720p WEB h264-EDITH [ UIndex.org ]",
+        "torrent_hash": "2bcacb60cdf00c8ac9d5c5d15e4495cd9411de29",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The.Daily.Show.2026.03.31.Julio.Torres.1080p.WEB.h264-EDITH.mkv",
+        "torrent_name": "The Daily Show 2026 03 31 Julio Torres 1080p WEB h264-EDITH [ UIndex.org ]",
+        "torrent_hash": "0548e2e0b61fe226fc690b4ee26d9bc056d39f74",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p AMZN WEB-DL DDP2 0 H 264-Kitsune.mkv",
+        "torrent_name": "The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p ",
+        "torrent_hash": "aebc4bd771e2202ff2282fbe69ab9b95c4afbc51",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 776.6708295345306,
+      "original_size": 3038553906,
+      "output_size": 405421147,
+      "output_path": "/home/rossell_j/Videos/sonarr/High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Shrinking S03E10 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Shrinking S03E10 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 668.8162410259247,
+      "original_size": 3127986234,
+      "output_size": 347625092,
+      "output_path": "/home/rossell_j/Videos/sonarr/Shrinking S03E10 [APTV WEB-DL 1080p AVC ES-EN DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "Invencible S04E05 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Invencible S04E05 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 757.3204464912415,
+      "original_size": 1751030802,
+      "output_size": 362650346,
+      "output_path": "/home/rossell_j/Videos/sonarr/Invencible S04E05 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Dr. Stone S04E25 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Dr. Stone S04E25 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 421.3221697807312,
+      "original_size": 1507525402,
+      "output_size": 197727032,
+      "output_path": "/home/rossell_j/Videos/sonarr/Dr. Stone S04E25 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv"
+    },
+    {
+      "name": "Monarch El legado de los monstruos S02E06 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Monarch El legado de los monstruos S02E06 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 870.9769942760468,
+      "original_size": 4444729489,
+      "output_size": 469136290,
+      "output_path": "/home/rossell_j/Videos/sonarr/Monarch El legado de los monstruos S02E06 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "Daredevil Born Again S02E02 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Daredevil Born Again S02E02 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 740.9363031387329,
+      "original_size": 1960372759,
+      "output_size": 370352250,
+      "output_path": "/home/rossell_j/Videos/sonarr/Daredevil Born Again S02E02 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Star Trek - Academia de la Flota Estelar S01E10 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Star Trek - Academia de la Flota Estelar S01E10 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 1334.9508609771729,
+      "original_size": 5282458378,
+      "output_size": 855398055,
+      "output_path": "/home/rossell_j/Videos/sonarr/Star Trek - Academia de la Flota Estelar S01E10 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Daredevil Born Again S02E03 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Daredevil Born Again S02E03 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 778.6386933326721,
+      "original_size": 2014058246,
+      "output_size": 394692089,
+      "output_path": "/home/rossell_j/Videos/sonarr/Daredevil Born Again S02E03 [DSNP WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "The Pitt S02E13 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/The Pitt S02E13 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 879.5680215358734,
+      "original_size": 3230617720,
+      "output_size": 509598745,
+      "output_path": "/home/rossell_j/Videos/sonarr/The Pitt S02E13 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Your Friends and Neighbours S02E01 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Your Friends and Neighbours S02E01 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 936.7060225009918,
+      "original_size": 5075267342,
+      "output_size": 464033708,
+      "output_path": "/home/rossell_j/Videos/sonarr/Your Friends and Neighbours S02E01 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    },
+    {
+      "name": "Para toda la humanidad S05E02 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Para toda la humanidad S05E02 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 729.4072179794312,
+      "original_size": 3836689492,
+      "output_size": 346751948,
+      "output_path": "/home/rossell_j/Videos/sonarr/Para toda la humanidad S05E02 [APTV WEB-DL 1080p AVC ES DD 5.1][HDO].mkv"
+    },
+    {
+      "name": "The.Daily.Show.2026.04.01.Mary.Claire.Haver.720p.WEB.h264-EDITH.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/www.UIndex.org    -    The.Daily.Show.2026.04.01.Mary.Claire.Haver.720p.WEB.h264-EDITH/The.Daily.Show.2026.04.01.Mary.Claire.Haver.720p.WEB.h264-EDITH.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 490.46703004837036,
+      "original_size": 1210384734,
+      "output_size": 266559170,
+      "output_path": "/home/rossell_j/Videos/sonarr/www.UIndex.org    -    The.Daily.Show.2026.04.01.Mary.Claire.Haver.720p.WEB.h264-EDITH/The.Daily.Show.2026.04.01.Mary.Claire.Haver.720p.WEB.h264-EDITH.mkv"
+    },
+    {
+      "name": "The.Daily.Show.2026.03.31.Julio.Torres.1080p.WEB.h264-EDITH.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/www.UIndex.org    -    The.Daily.Show.2026.03.31.Julio.Torres.1080p.WEB.h264-EDITH/The.Daily.Show.2026.03.31.Julio.Torres.1080p.WEB.h264-EDITH.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 702.9318459033966,
+      "original_size": 2768279569,
+      "output_size": 302585250,
+      "output_path": "/home/rossell_j/Videos/sonarr/www.UIndex.org    -    The.Daily.Show.2026.03.31.Julio.Torres.1080p.WEB.h264-EDITH/The.Daily.Show.2026.03.31.Julio.Torres.1080p.WEB.h264-EDITH.mkv"
+    },
+    {
+      "name": "The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p AMZN WEB-DL DDP2 0 H 264-Kitsune.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/www.UIndex.org    -    The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p AMZN WEB-DL DDP2 0 H 264-Kitsune/The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p AMZN WEB-DL DDP2 0 H 264-Kitsune.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 627.5185103416443,
+      "original_size": 2527286978,
+      "output_size": 253050964,
+      "output_path": "/home/rossell_j/Videos/sonarr/www.UIndex.org    -    The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p AMZN WEB-DL DDP2 0 H 264-Kitsune/The Daily Show S31E036 2026 03 24 Sterling K Brown Host Josh Johnson 1080p AMZN WEB-DL DDP2 0 H 264-Kitsune.mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775614446.9876883,
+    "finished_at": 1775625763.1558793,
+    "selection": {
+      "lidarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      }
+    }
+  }
+}

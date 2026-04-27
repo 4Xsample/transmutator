@@ -16,10 +16,16 @@ categories:
 
 # qBittorrent API
 qbittorrent:
+  enabled: false
+  host: "http://localhost"
+  port: 8080
   url: "http://localhost:8080"
   username: ""  # Deixa buit si no hi ha autenticació
   password: ""  # Deixa buit si no hi ha autenticació
+  api_key: ""   # Opcional si la Web API usa API key
+  api_key_header: "X-API-Key"
   processed_category: "processat"
+  modify_torrent_category: false
 
 # Configuració de vídeo
 video:

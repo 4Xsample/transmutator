@@ -145,7 +145,7 @@ class FileDetector:
         """Scan all category directories in TMP staging."""
         results = {}
         
-        for category in Config.TORRENT_CATEGORIES.values():
+        for category in Config.TORRENT_CATEGORIES.keys():
             files = cls.scan_tmp_staging(category)
             if files:
                 results[category] = files
@@ -157,7 +157,7 @@ class FileDetector:
         """Scan torrent source directories for all categories."""
         results = {}
 
-        for category in Config.TORRENT_CATEGORIES.values():
+        for category in Config.TORRENT_CATEGORIES.keys():
             src = Config.get_torrent_path(category)
             if src.exists():
                 files = cls.scan_directory(src, category=category, recursive=True)

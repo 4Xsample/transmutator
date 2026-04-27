@@ -1,0 +1,151 @@
+{
+  "timestamp": "2026-04-08T11:28:49.792930",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 6,
+    "successes": 2,
+    "failures": 4,
+    "success_rate": 33.33333333333333,
+    "total_original_size": 34171484015,
+    "total_output_size": 6183011895,
+    "total_duration": 7453.439761400223,
+    "space_saved": 27988472120,
+    "compression_ratio": 81.90593100292077
+  },
+  "by_category": {
+    "radarr": {
+      "successes": 2,
+      "failures": 4,
+      "original_size": 34171484015,
+      "output_size": 6183011895,
+      "duration_seconds": 7450
+    }
+  },
+  "media_types": {
+    "video": 6
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 1,
+    "failures": 1,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "Enemigo publico (1998) [BDRemux 1080p MPEG-2 ES DTS 5.1 - EN PCM 5.1 Subs][HDO].mkv",
+        "torrent_name": "Enemigo publico (1998) [BDRemux 1080p MPEG-2 ES DTS 5.1 - EN PCM 5.1 Subs][HDO].mkv",
+        "torrent_hash": "ff80c4f66faf96a777ab0e7df2456e81d73a2fbe",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": false,
+        "media_name": "¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "error": "No matching torrent found"
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "The Toxic Avenger (1984) Remux-1080p x264 AAC [ES+EN].mp4",
+      "path": "/home/rossell_j/Videos/TMP/radarr/The Toxic Avenger (1984) Remux-1080p x264 AAC [ES+EN].mp4",
+      "category": "radarr",
+      "media_type": "video",
+      "success": false,
+      "error": "HandBrakeCLI: [09:23:25] CPU: Unknown\n[09:23:25]  - logical processor count: 16\n[09:23:25] Intel Quick Sync Video support: no\n[09:23:25] hb_scan: path=/home/rossell_j/Videos/TMP/radarr/The Toxic Avenger (1984) Remux-1080p x264 AAC [ES+EN].mp4, title_index=1\n[mov,mp4,m4a,3gp,3g2,mj2 @ 0x7f3378001680] moov atom not found\n[09:23:25] hb_stream_open: open /home/rossell_j/Videos/TMP/radarr/The Toxic Avenger (1984) Remux-1080p x264 AAC [ES+EN].mp4 failed\n[09:23:25] scan: unrecognized file type\n[09:23:25] libhb: scan",
+      "duration_seconds": 0.6197586059570312,
+      "original_size": 327,
+      "output_size": null,
+      "output_path": null
+    },
+    {
+      "name": "Event Horizon (1997) HDTV-1080p x264 AAC [ES+EN].mp4",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Event Horizon (1997) HDTV-1080p x264 AAC [ES+EN].mp4",
+      "category": "radarr",
+      "media_type": "video",
+      "success": false,
+      "error": "HandBrakeCLI: [09:23:26] CPU: Unknown\n[09:23:26]  - logical processor count: 16\n[09:23:26] Intel Quick Sync Video support: no\n[09:23:26] hb_scan: path=/home/rossell_j/Videos/TMP/radarr/Event Horizon (1997) HDTV-1080p x264 AAC [ES+EN].mp4, title_index=1\n[mov,mp4,m4a,3gp,3g2,mj2 @ 0x7f5394001680] moov atom not found\n[09:23:26] hb_stream_open: open /home/rossell_j/Videos/TMP/radarr/Event Horizon (1997) HDTV-1080p x264 AAC [ES+EN].mp4 failed\n[09:23:26] scan: unrecognized file type\n[09:23:26] libhb: scan thread fo",
+      "duration_seconds": 0.611717700958252,
+      "original_size": 546,
+      "output_size": null,
+      "output_path": null
+    },
+    {
+      "name": "The Hobbit - The Desolation of Smaug (2013) HDTV-1080p x264 AAC [ES+EN].mp4",
+      "path": "/home/rossell_j/Videos/TMP/radarr/The Hobbit - The Desolation of Smaug (2013) HDTV-1080p x264 AAC [ES+EN].mp4",
+      "category": "radarr",
+      "media_type": "video",
+      "success": false,
+      "error": "HandBrakeCLI: [09:23:27] CPU: Unknown\n[09:23:27]  - logical processor count: 16\n[09:23:27] Intel Quick Sync Video support: no\n[09:23:27] hb_scan: path=/home/rossell_j/Videos/TMP/radarr/The Hobbit - The Desolation of Smaug (2013) HDTV-1080p x264 AAC [ES+EN].mp4, title_index=1\n[mov,mp4,m4a,3gp,3g2,mj2 @ 0x7f4c940016c0] moov atom not found\n[09:23:27] hb_stream_open: open /home/rossell_j/Videos/TMP/radarr/The Hobbit - The Desolation of Smaug (2013) HDTV-1080p x264 AAC [ES+EN].mp4 failed\n[09:23:27] scan: unrecogni",
+      "duration_seconds": 0.624445915222168,
+      "original_size": 136054110,
+      "output_size": null,
+      "output_path": null
+    },
+    {
+      "name": "Enemigo publico (1998) [BDRemux 1080p MPEG-2 ES DTS 5.1 - EN PCM 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Enemigo publico (1998) [BDRemux 1080p MPEG-2 ES DTS 5.1 - EN PCM 5.1 Subs][HDO].mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4330.418000221252,
+      "original_size": 26790111184,
+      "output_size": 3947716729,
+      "output_path": "/home/rossell_j/Videos/radarr/Enemigo publico (1998) [BDRemux 1080p MPEG-2 ES DTS 5.1 - EN PCM 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Extraction (2020) HDTV-1080p x264 AAC [ES+EN].mp4",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Extraction (2020) HDTV-1080p x264 AAC [ES+EN].mp4",
+      "category": "radarr",
+      "media_type": "video",
+      "success": false,
+      "error": "HandBrakeCLI: [10:35:38] CPU: Unknown\n[10:35:38]  - logical processor count: 16\n[10:35:38] Intel Quick Sync Video support: no\n[10:35:38] hb_scan: path=/home/rossell_j/Videos/TMP/radarr/Extraction (2020) HDTV-1080p x264 AAC [ES+EN].mp4, title_index=1\n[mov,mp4,m4a,3gp,3g2,mj2 @ 0x7f5454001680] moov atom not found\n[10:35:38] hb_stream_open: open /home/rossell_j/Videos/TMP/radarr/Extraction (2020) HDTV-1080p x264 AAC [ES+EN].mp4 failed\n[10:35:38] scan: unrecognized file type\n[10:35:38] libhb: scan thread found 0 ",
+      "duration_seconds": 0.6047592163085938,
+      "original_size": 48,
+      "output_size": null,
+      "output_path": null
+    },
+    {
+      "name": "¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3120.5610797405243,
+      "original_size": 7245317800,
+      "output_size": 2235295166,
+      "output_path": "/home/rossell_j/Videos/radarr/¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775632721.8702059,
+    "finished_at": 1775640529.7929268,
+    "selection": {
+      "lidarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      },
+      "tv-sonarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

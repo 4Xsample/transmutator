@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-04-09T17:55:53.798236",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 2,
+    "successes": 1,
+    "failures": 1,
+    "success_rate": 50.0,
+    "total_original_size": 3146198024,
+    "total_output_size": 176316740,
+    "total_duration": 1011.0525965690613,
+    "space_saved": 2969881284,
+    "compression_ratio": 94.39587913236831
+  },
+  "by_category": {
+    "tv-sonarr": {
+      "successes": 1,
+      "failures": 1,
+      "original_size": 3146198024,
+      "output_size": 176316740,
+      "duration_seconds": 1010
+    }
+  },
+  "media_types": {
+    "video": 2
+  },
+  "qbittorrent": {
+    "enabled": false,
+    "successes": 0,
+    "failures": 0,
+    "actions": []
+  },
+  "results": [
+    {
+      "name": "Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 370.28682494163513,
+      "original_size": 1504652699,
+      "output_size": 176316740,
+      "output_path": "/home/rossell_j/Videos/sonarr/Dr. Stone S04E26 [CRUNCHYROLL WEB-DL 1080p AVC ES AAC 2.0][HDO].mkv"
+    },
+    {
+      "name": "Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Invencible S04E06 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": false,
+      "error": "HandBrakeCLI: [17:45:13] encx264: min-keyint: 30, keyint: 300\n[17:45:13] encx264: encoding at constant RF 26.000000\n[17:45:13] encx264: unparsed options: level=3.1:ref=5:direct=auto:weightb=0:no-deblock=1:cabac=0:8x8dct=0:weightp=0:subme=8:trellis=2:vbv-bufsize=14000:vbv-maxrate=14000:rc-lookahead=50\nx264 [info]: using SAR=1/1\nx264 [info]: using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2\nx264 [info]: profile Main, level 3.1, 4:2:0, 8-bit\n[17:45:13] sync: first pts video is 0\n[17:45:13] sy",
+      "duration_seconds": 640.7657716274261,
+      "original_size": 1641545325,
+      "output_size": null,
+      "output_path": null
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "stopped",
+    "last_error": "",
+    "started_at": 1775749058.8933945,
+    "finished_at": 1775750153.798119,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

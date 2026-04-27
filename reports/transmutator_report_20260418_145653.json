@@ -1,0 +1,172 @@
+{
+  "timestamp": "2026-04-18T14:56:53.155160",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 5,
+    "successes": 5,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 90971800365,
+    "total_output_size": 18628051498,
+    "total_duration": 22612.219806432724,
+    "space_saved": 72343748867,
+    "compression_ratio": 79.52326828395181
+  },
+  "by_category": {
+    "radarr": {
+      "successes": 5,
+      "failures": 0,
+      "original_size": 90971800365,
+      "output_size": 18628051498,
+      "duration_seconds": 22610
+    }
+  },
+  "media_types": {
+    "video": 5
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 5,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "Alien, el octavo pasajero (1979) [Versión cinematográfica] UHDREMUX.mkv",
+        "torrent_name": "Alien, el octavo pasajero (1979) [Versión cinematográfica] UHDREMUX.mkv",
+        "torrent_hash": "bf45d77cc0c9e848e483e90d9131a3a287af60a3",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Ferrari (2023) BDRIP 1080p ESP-ENG DD5.1 SUBT H264.mkv",
+        "torrent_name": "Ferrari (2023) BDRIP 1080p ESP-ENG DD5.1 SUBT H264.mkv",
+        "torrent_hash": "44c7e5ed2eaecd0b4aacfbdb42b8ded4f5d25460",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Heat (1995) 1080p AMZN WEB-DL ESP-ENG DDP 5.1 AVC.mkv",
+        "torrent_name": "Heat (1995) 1080p AMZN WEB-DL ESP-ENG DDP 5.1 AVC.mkv",
+        "torrent_hash": "733390b1a646b5c582325f9adcd26318634c729a",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Mickey 17 (2025) 1080p AMZ WEB-DL ESP DD+ 5.1 ING DD+ Atmos 5.1 SUBS H.264 -BYNDR.mkv",
+        "torrent_name": "Mickey 17 (2025) 1080p AMZ WEB-DL ESP DD+ 5.1 ING DD+ Atmos 5.1 SUBS H.264 -BYNDR.mkv",
+        "torrent_hash": "f80275eaf329c5037a006649f587a03a39b794f3",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "SE7EN (1995) BluRay 1080p.mkv",
+        "torrent_name": "Se7en (1995) BluRay 1080p ESP-ENG DD+ 5.1 Subs x264",
+        "torrent_hash": "e601c4659753800f26c0537a631988bae7cd9546",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "Alien, el octavo pasajero (1979) [Versión cinematográfica] UHDREMUX.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Alien, el octavo pasajero (1979) [Versión cinematográfica] UHDREMUX.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 6660.279944658279,
+      "original_size": 50450013778,
+      "output_size": 3676609595,
+      "output_path": "/home/rossell_j/Videos/radarr/Alien, el octavo pasajero (1979) [Versión cinematográfica] UHDREMUX.mkv"
+    },
+    {
+      "name": "Ferrari (2023) BDRIP 1080p ESP-ENG DD5.1 SUBT H264.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Ferrari (2023) BDRIP 1080p ESP-ENG DD5.1 SUBT H264.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3163.6231396198273,
+      "original_size": 11955527335,
+      "output_size": 2597517021,
+      "output_path": "/home/rossell_j/Videos/radarr/Ferrari (2023) BDRIP 1080p ESP-ENG DD5.1 SUBT H264.mkv"
+    },
+    {
+      "name": "Heat (1995) 1080p AMZN WEB-DL ESP-ENG DDP 5.1 AVC.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Heat (1995) 1080p AMZN WEB-DL ESP-ENG DDP 5.1 AVC.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 5768.618140220642,
+      "original_size": 9206621201,
+      "output_size": 5872355627,
+      "output_path": "/home/rossell_j/Videos/radarr/Heat (1995) 1080p AMZN WEB-DL ESP-ENG DDP 5.1 AVC.mkv"
+    },
+    {
+      "name": "Mickey 17 (2025) 1080p AMZ WEB-DL ESP DD+ 5.1 ING DD+ Atmos 5.1 SUBS H.264 -BYNDR.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Mickey 17 (2025) 1080p AMZ WEB-DL ESP DD+ 5.1 ING DD+ Atmos 5.1 SUBS H.264 -BYNDR.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4593.407910823822,
+      "original_size": 10818894956,
+      "output_size": 4340092617,
+      "output_path": "/home/rossell_j/Videos/radarr/Mickey 17 (2025) 1080p AMZ WEB-DL ESP DD+ 5.1 ING DD+ Atmos 5.1 SUBS H.264 -BYNDR.mkv"
+    },
+    {
+      "name": "SE7EN (1995) BluRay 1080p.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Se7en (1995) BluRay 1080p ESP-ENG DD+ 5.1 Subs x264/SE7EN (1995) BluRay 1080p.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 2426.290671110153,
+      "original_size": 8540743095,
+      "output_size": 2141476638,
+      "output_path": "/home/rossell_j/Videos/radarr/Se7en (1995) BluRay 1080p ESP-ENG DD+ 5.1 Subs x264/SE7EN (1995) BluRay 1080p.mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1776490969.313329,
+    "finished_at": 1776517013.1550744,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

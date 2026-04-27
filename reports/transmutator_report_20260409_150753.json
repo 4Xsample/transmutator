@@ -1,0 +1,73 @@
+{
+  "timestamp": "2026-04-09T15:07:53.542670",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 1,
+    "successes": 0,
+    "failures": 1,
+    "success_rate": 0.0,
+    "total_original_size": 3038553906,
+    "total_output_size": 0,
+    "total_duration": 53.2748863697052,
+    "space_saved": 3038553906,
+    "compression_ratio": 100.0
+  },
+  "by_category": {
+    "tv-sonarr": {
+      "successes": 0,
+      "failures": 1,
+      "original_size": 3038553906,
+      "output_size": 0,
+      "duration_seconds": 53
+    }
+  },
+  "media_types": {
+    "video": 1
+  },
+  "qbittorrent": {
+    "enabled": false,
+    "successes": 0,
+    "failures": 0,
+    "actions": []
+  },
+  "results": [
+    {
+      "name": "High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/High Potential Detective Inesperada S02E14 [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": false,
+      "error": "HandBrakeCLI: [15:07:01] encx264: unparsed options: level=3.1:ref=5:direct=auto:weightb=0:no-deblock=1:cabac=0:8x8dct=0:weightp=0:subme=8:trellis=2:vbv-bufsize=14000:vbv-maxrate=14000:rc-lookahead=50\nx264 [info]: using SAR=1/1\nx264 [info]: using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2\nx264 [info]: profile Main, level 3.1, 4:2:0, 8-bit\n[15:07:01] sync: first pts video is 0\n[15:07:01] sync: \"Scene 1\" (1) at frame 1 time 0\n[15:07:01] sync: first pts audio 0x1 is 0\n[15:07:01] sync: first p",
+      "duration_seconds": 53.2748863697052,
+      "original_size": 3038553906,
+      "output_size": null,
+      "output_path": null
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "stopped",
+    "last_error": "",
+    "started_at": 1775739931.2395797,
+    "finished_at": 1775740073.542663,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "timestamp": "2026-04-08T00:13:02.194867",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 15,
+    "successes": 15,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 7786076344,
+    "total_output_size": 2422161530,
+    "total_duration": 3392.4051463603973,
+    "space_saved": 5363914814,
+    "compression_ratio": 68.89111507535458
+  },
+  "by_category": {
+    "radarr": {
+      "successes": 1,
+      "failures": 0,
+      "original_size": 7245317800,
+      "output_size": 2235295166,
+      "duration_seconds": 3323
+    },
+    "lidarr": {
+      "successes": 14,
+      "failures": 0,
+      "original_size": 540758544,
+      "output_size": 186866364,
+      "duration_seconds": 63
+    }
+  },
+  "media_types": {
+    "video": 1,
+    "audio": 14
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 2,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+        "torrent_name": "¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+        "torrent_hash": "30ddf93a6bafdfd7d6ebe95bdf0446d0648f8d18",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "08. Pretty Tied Up.flac",
+        "torrent_name": "Guns N' Roses - Use Your Illusion II (1991) FLAC 88 [ UIndex.org ]",
+        "torrent_hash": "c12957bbea2fec46ccd83f211ccd546b79946f43",
+        "source_category": "lidarr",
+        "target_category": "Processat",
+        "state": "uploading",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3323.466225385666,
+      "original_size": 7245317800,
+      "output_size": 2235295166,
+      "output_path": "/home/rossell_j/Videos/radarr/¡La novia! (2026) [WEB-DL 1080p AVC ES DD+ 5.1 Subs]HDO.mkv"
+    },
+    {
+      "name": "08. Pretty Tied Up.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/08. Pretty Tied Up.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4.415600061416626,
+      "original_size": 35392295,
+      "output_size": 11844363,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/08. Pretty Tied Up.mp3"
+    },
+    {
+      "name": "14. My World.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/14. My World.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 1.2947266101837158,
+      "original_size": 10514390,
+      "output_size": 3694153,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/14. My World.mp3"
+    },
+    {
+      "name": "04. Knockin’ On Heaven’s Door.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/04. Knockin’ On Heaven’s Door.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 5.277561187744141,
+      "original_size": 39959094,
+      "output_size": 13769080,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/04. Knockin’ On Heaven’s Door.mp3"
+    },
+    {
+      "name": "10. So Fine.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/10. So Fine.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.686182737350464,
+      "original_size": 27827430,
+      "output_size": 10179834,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/10. So Fine.mp3"
+    },
+    {
+      "name": "13. Don’t Cry (Alternate Lyrics).flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/13. Don’t Cry (Alternate Lyrics).flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 4.27266788482666,
+      "original_size": 32034919,
+      "output_size": 11698094,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/13. Don’t Cry (Alternate Lyrics).mp3"
+    },
+    {
+      "name": "01. Civil War.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/01. Civil War.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 7.049766540527344,
+      "original_size": 53252573,
+      "output_size": 18825321,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/01. Civil War.mp3"
+    },
+    {
+      "name": "09. Locomotive.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/09. Locomotive.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 7.782846927642822,
+      "original_size": 65062704,
+      "output_size": 21210824,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/09. Locomotive.mp3"
+    },
+    {
+      "name": "12. You Could Be Mine.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/12. You Could Be Mine.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 5.156548976898193,
+      "original_size": 42993997,
+      "output_size": 14073134,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/12. You Could Be Mine.mp3"
+    },
+    {
+      "name": "07. Breakdown.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/07. Breakdown.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 6.608334541320801,
+      "original_size": 50386895,
+      "output_size": 17307084,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/07. Breakdown.mp3"
+    },
+    {
+      "name": "05. Get In The Ring.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/05. Get In The Ring.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 5.065716028213501,
+      "original_size": 41373318,
+      "output_size": 13978045,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/05. Get In The Ring.mp3"
+    },
+    {
+      "name": "02. 14 Years.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/02. 14 Years.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.8455750942230225,
+      "original_size": 32107900,
+      "output_size": 10780651,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/02. 14 Years.mp3"
+    },
+    {
+      "name": "06. Shotgun Blues.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/06. Shotgun Blues.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.0231776237487793,
+      "original_size": 26199003,
+      "output_size": 8447398,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/06. Shotgun Blues.mp3"
+    },
+    {
+      "name": "11. Estranged.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/11. Estranged.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 8.50226640701294,
+      "original_size": 61236887,
+      "output_size": 22882661,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/11. Estranged.mp3"
+    },
+    {
+      "name": "03. Yesterdays.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/03. Yesterdays.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 2.9579503536224365,
+      "original_size": 22417139,
+      "output_size": 8175722,
+      "output_path": "/home/rossell_j/Music/Guns N' Roses - Use Your Illusion II (1991) FLAC 88/03. Yesterdays.mp3"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775596463.1644454,
+    "finished_at": 1775599982.1948595,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": false,
+        "convertir": false,
+        "enviar": false
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

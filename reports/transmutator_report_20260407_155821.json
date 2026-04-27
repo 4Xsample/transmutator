@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-04-07T15:58:21.430519",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 0,
+    "successes": 0,
+    "failures": 0,
+    "total_original_size": 0,
+    "total_output_size": 0,
+    "total_duration": 0,
+    "space_saved": 0,
+    "compression_ratio": 0.0
+  },
+  "by_category": {},
+  "qbittorrent": {
+    "enabled": false,
+    "successes": 0,
+    "failures": 0,
+    "actions": []
+  },
+  "results": [],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775570301.4302227,
+    "finished_at": 1775570301.4305108,
+    "selection": {}
+  }
+}

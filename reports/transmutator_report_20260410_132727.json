@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-04-10T13:27:27.831245",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 2,
+    "successes": 2,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 5602948245,
+    "total_output_size": 1026415335,
+    "total_duration": 1733.9601526260376,
+    "space_saved": 4576532910,
+    "compression_ratio": 81.68079928427038
+  },
+  "by_category": {
+    "tv-sonarr": {
+      "successes": 2,
+      "failures": 0,
+      "original_size": 5602948245,
+      "output_size": 1026415335,
+      "duration_seconds": 1733
+    }
+  },
+  "media_types": {
+    "video": 2
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 2,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "For.All.Mankind.S05e03.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv",
+        "torrent_name": "For All Mankind S05e03 [1080p Ita Eng Spa h265 10bit SubS] byMe7alh [MIRCrew]",
+        "torrent_hash": "0b3fece5af7dbd18ae6e299406852c26a2511698",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "uploading",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Monarch El legado de los monstruos S02E07 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_name": "Monarch El legado de los monstruos S02E07 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+        "torrent_hash": "7b7e1934e19a0261a595189af43d8237ed6e8fae",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "For.All.Mankind.S05e03.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/For.All.Mankind.S05e03.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 857.0333828926086,
+      "original_size": 1071946537,
+      "output_size": 469517630,
+      "output_path": "/home/rossell_j/Videos/sonarr/For.All.Mankind.S05e03.Ita.Eng.Spa.1080p.h265.10bit.SubS-Me7alh.mkv"
+    },
+    {
+      "name": "Monarch El legado de los monstruos S02E07 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Monarch El legado de los monstruos S02E07 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 876.926769733429,
+      "original_size": 4531001708,
+      "output_size": 556897705,
+      "output_path": "/home/rossell_j/Videos/sonarr/Monarch El legado de los monstruos S02E07 [APTV WEB-DL 1080p AVC ES DD+ Atmos 5.1][HDO].mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775818650.5387905,
+    "finished_at": 1775820447.8312361,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}

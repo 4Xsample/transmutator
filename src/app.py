@@ -11,20 +11,24 @@ import threading
 import time
 from pathlib import Path
 from typing import List, Tuple
+import logging
 
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container, Horizontal, VerticalScroll
 from textual.widgets import Header, Footer, Static, Button, RichLog
 
-from .config import Config
+from .config import Config, get_pipeline_selection
 from .converter import ConversionResult, MediaConverter, ProcessHandle
 from .file_detector import FileDetector, MediaFile, MediaType
 from .hacker import generate_animation
 from .pipeline import ExtractPhase, LoadPhase, check_disk_space, format_size
 from .report import ReportData, build_report_tui, save_report, fmt_duration
+from .selection_screen import SelectionScreen
 from .widgets import (
-    BRIGHT, DIM, WARN,
+    BRIGHT,
+    DIM,
+    WARN,
     CountdownScreen,
     DualColumnList,
     FileRow,
@@ -58,6 +62,7 @@ class TransmutatorApp(App):
         self._ph = ProcessHandle()
         self._results: List[Tuple[MediaFile, ConversionResult]] = []
         self._sel = 0
+        self._pipeline_selection = None  # Set when SelectionScreen dismisses
         # phase counters
         self._ext_done = 0
         self._ext_total = 0
@@ -93,6 +98,13 @@ class TransmutatorApp(App):
     def on_mount(self) -> None:
         self.title = self.TITLE
         self.sub_title = self.SUB_TITLE
+        self.push_screen(SelectionScreen(), self._on_selection_done)
+
+    def _on_selection_done(self, selection) -> None:
+        """Called when SelectionScreen dismisses (Següent)."""
+        self._pipeline_selection = (
+            selection if selection is not None else get_pipeline_selection()
+        )
         self._initial_scan()
 
     # ── Scan helpers ──────────────────────────────────────────────────
@@ -128,12 +140,14 @@ class TransmutatorApp(App):
                     except ValueError:
                         rel = f.path.name
                     already = (cat, rel) in tmp_keys
-                    rows.append(FileRow(
-                        name=f.path.name,
-                        category=cat,
-                        progress=100.0 if already else 0.0,
-                        status="done" if already else "pending",
-                    ))
+                    rows.append(
+                        FileRow(
+                            name=f.path.name,
+                            category=cat,
+                            progress=100.0 if already else 0.0,
+                            status="done" if already else "pending",
+                        )
+                    )
 
             # TMP-only files (placed manually)
             for cat, files in tmp_by_cat.items():
@@ -149,12 +163,14 @@ class TransmutatorApp(App):
         if not rows:
             # Fallback: just show TMP files
             for f in self.media_files:
-                rows.append(FileRow(
-                    name=f.path.name,
-                    category=f.category,
-                    progress=100.0,
-                    status="done",
-                ))
+                rows.append(
+                    FileRow(
+                        name=f.path.name,
+                        category=f.category,
+                        progress=100.0,
+                        status="done",
+                    )
+                )
 
         self._file_rows = rows
         fl = self.query_one("#flist", DualColumnList)
@@ -282,10 +298,28 @@ class TransmutatorApp(App):
         app = self
         app._results = []
         app._ph = ProcessHandle()
+        sel = app._pipeline_selection or get_pipeline_selection()
+        cats_importar = [c for c in sel if sel.get(c, {}).get("importar", True)]
+        cats_convertir = [c for c in sel if sel.get(c, {}).get("convertir", True)]
+        cats_enviar = [c for c in sel if sel.get(c, {}).get("enviar", True)]
 
         # ── Phase 1: Extract ─────────────────────────────────────────
-        if Config.TORRENT_BASE.exists():
-            app._ext_total = sum(1 for r in app._file_rows if r.status == "pending")
+        run_extract = (
+            Config.TORRENT_BASE.exists()
+            and cats_importar
+            and sum(
+                1
+                for r in app._file_rows
+                if r.status == "pending" and r.category in cats_importar
+            )
+            > 0
+        )
+        if run_extract:
+            app._ext_total = sum(
+                1
+                for r in app._file_rows
+                if r.status == "pending" and r.category in cats_importar
+            )
             app._ext_done = 0
             app.call_from_thread(
                 lambda: app._seg().set_seg(0, cur=0, tot=app._ext_total, active=True)
@@ -304,28 +338,42 @@ class TransmutatorApp(App):
                 app.call_from_thread(app._on_transfer, cat, fname, pct, "extract")
 
             if not app._stop_pipeline:
-                ExtractPhase.extract_all(progress_callback=ext_cb, process_handle=app._ph)
+                ExtractPhase.extract_all(
+                    progress_callback=ext_cb,
+                    process_handle=app._ph,
+                    categories=cats_importar,
+                )
 
             app.call_from_thread(
-                lambda: app._seg().set_seg(0, active=False, done=True,
-                                            cur=app._ext_done, tot=app._ext_total)
+                lambda: app._seg().set_seg(
+                    0, active=False, done=True, cur=app._ext_done, tot=app._ext_total
+                )
             )
         else:
+            if not Config.TORRENT_BASE.exists() and cats_importar:
+                app.call_from_thread(
+                    lambda: app.notify(
+                        "Directori torrents no accessible, saltant extracció.",
+                        severity="warning",
+                    )
+                )
+            app._ext_total = 0
+            app._ext_done = 0
             app.call_from_thread(
-                lambda: app.notify("Directori torrents no accessible, saltant extracció.",
-                                    severity="warning")
+                lambda: app._seg().set_seg(0, cur=0, tot=0, active=False, done=True)
             )
 
         if app._stop_pipeline:
             app.call_from_thread(app._pipeline_finished)
             return
 
-        # Rescan TMP after extract
-        by_cat = FileDetector.scan_all_categories()
-        new_files: List[MediaFile] = []
-        for files in by_cat.values():
-            new_files.extend(files)
-        app.media_files = new_files
+        # Rescan TMP after extract (only if we ran extract)
+        if run_extract:
+            by_cat = FileDetector.scan_all_categories()
+            new_files: List[MediaFile] = []
+            for files in by_cat.values():
+                new_files.extend(files)
+            app.media_files = new_files
 
         # ── Transition animation → countdown ─────────────────────────
         movies = sum(1 for f in app.media_files if f.category == "radarr")
@@ -366,79 +414,112 @@ class TransmutatorApp(App):
 
         # ── Phase 2: Transform ───────────────────────────────────────
         app.call_from_thread(app._show_list)
+        files_to_convert = [f for f in app.media_files if f.category in cats_convertir]
         conv_rows = [
             FileRow(name=f.path.name, category=f.category, status="pending")
-            for f in app.media_files
+            for f in files_to_convert
         ]
         app._file_rows = conv_rows
         app._conv_total = len(conv_rows)
         app._conv_done = 0
 
-        app.call_from_thread(lambda: app._fl().set_mode("convert", "ARXIU", "PROGRÉS"))
-        app.call_from_thread(lambda: app._fl().set_rows(conv_rows))
-        app.call_from_thread(
-            lambda: app._seg().set_seg(1, cur=0, tot=app._conv_total, active=True)
-        )
-
-        ok, avail = check_disk_space(Config.OUTPUT_BASE)
-        if not ok and avail:
+        if not conv_rows:
             app.call_from_thread(
-                lambda: app.notify("Avís: < 1 GB lliure al dir. sortida!", severity="warning")
+                lambda: app._seg().set_seg(1, cur=0, tot=0, active=False, done=True)
             )
-
-        for i, mf in enumerate(app.media_files):
             if app._stop_pipeline:
-                app.call_from_thread(
-                    lambda: app.notify("Pipeline aturat.", severity="information")
-                )
-                break
-            app.call_from_thread(app._fl().update_row, i, status="active")
-            app.call_from_thread(app._fl().set_selected, i)
-            fsize = format_size(mf.original_size) if mf.original_size else "—"
+                app.call_from_thread(app._pipeline_finished)
+                return
+            # Skip to load phase transition
+        else:
             app.call_from_thread(
-                app._set_label,
-                app._progress_text(
-                    mf.path.name,
-                    f"  |  {fsize}  |  —  |  ETA: —",
-                    prefix="  Progrés arxiu actual: ",
-                ),
+                lambda: app._fl().set_mode("convert", "ARXIU", "PROGRÉS")
+            )
+            app.call_from_thread(lambda: app._fl().set_rows(conv_rows))
+            app.call_from_thread(
+                lambda: app._seg().set_seg(1, cur=0, tot=app._conv_total, active=True)
             )
 
-            # Throttle: actualitzar UI com a màxim cada 1 s o cada 1% per estalviar crides
-            _last = [0.0, -1.0]  # [last_time, last_pct]
+            ok, avail = check_disk_space(Config.OUTPUT_BASE)
+            if not ok and avail:
+                app.call_from_thread(
+                    lambda: app.notify(
+                        "Avís: < 1 GB lliure al dir. sortida!", severity="warning"
+                    )
+                )
 
-            def pcb(pct: float, eta: str, _i=i, _name=mf.path.name, _fsize=fsize):
-                now = time.monotonic()
-                dt = now - _last[0]
-                dp = abs(pct - _last[1])
-                if pct >= 99.9 or dt >= 1.0 or dp >= 1.0 or _last[1] < 0:
-                    _last[0] = now
-                    _last[1] = pct
-                    def update_ui():
-                        app._fl().update_row(_i, pct=pct)
-                        app._fl().refresh()
-                    app.call_from_thread(update_ui)
-                    mida = _fsize if _fsize else "—"
-                    eta_part = f"ETA: {eta}" if eta else "ETA: —"
-                    suffix = f"  |  {mida}  |  {pct:.1f}%  |  {eta_part}"
+            for i, mf in enumerate(files_to_convert):
+                if app._stop_pipeline:
                     app.call_from_thread(
-                        app._set_label,
-                        app._progress_text(_name, suffix, prefix="  Progrés arxiu actual: "),
+                        lambda: app.notify("Pipeline aturat.", severity="information")
+                    )
+                    break
+                app.call_from_thread(app._fl().update_row, i, status="active")
+                app.call_from_thread(app._fl().set_selected, i)
+                fsize = format_size(mf.original_size) if mf.original_size else "—"
+                app.call_from_thread(
+                    app._set_label,
+                    app._progress_text(
+                        mf.path.name,
+                        f"  |  {fsize}  |  —  |  ETA: —",
+                        prefix="  Progrés arxiu actual: ",
+                    ),
+                )
+
+                # Throttle: actualitzar UI com a màxim cada 1 s o cada 1% per estalviar crides
+                _last = [0.0, -1.0]  # [last_time, last_pct]
+
+                def pcb(pct: float, eta: str, _i=i, _name=mf.path.name, _fsize=fsize):
+                    now = time.monotonic()
+                    dt = now - _last[0]
+                    dp = abs(pct - _last[1])
+                    if pct >= 99.9 or dt >= 1.0 or dp >= 1.0 or _last[1] < 0:
+                        _last[0] = now
+                        _last[1] = pct
+
+                        def update_ui():
+                            app._fl().update_row(_i, pct=pct)
+                            app._fl().refresh()
+
+                        app.call_from_thread(update_ui)
+                        mida = _fsize if _fsize else "—"
+                        eta_part = f"ETA: {eta}" if eta else "ETA: —"
+                        suffix = f"  |  {mida}  |  {pct:.1f}%  |  {eta_part}"
+                        app.call_from_thread(
+                            app._set_label,
+                            app._progress_text(
+                                _name, suffix, prefix="  Progrés arxiu actual: "
+                            ),
+                        )
+
+                res = MediaConverter.convert(
+                    mf, progress_callback=pcb, process_handle=app._ph
+                )
+                app._results.append((mf, res))
+
+                # Clean up source file from TMP after successful conversion
+                if res.success:
+                    try:
+                        mf.path.unlink()  # Delete the source file from TMP
+                        logger.info(f"Deleted source file after conversion: {mf.path}")
+                    except Exception as e:
+                        logger.warning(f"Failed to delete source file {mf.path}: {e}")
+
+                st = "done" if res.success else "error"
+                app.call_from_thread(
+                    app._fl().update_row, i, pct=100.0 if res.success else 0, status=st
+                )
+                if res.success:
+                    app._conv_done += 1
+                    app.call_from_thread(
+                        lambda: app._seg().set_seg(1, cur=app._conv_done)
                     )
 
-            res = MediaConverter.convert(mf, progress_callback=pcb, process_handle=app._ph)
-            app._results.append((mf, res))
-
-            st = "done" if res.success else "error"
-            app.call_from_thread(app._fl().update_row, i, pct=100.0 if res.success else 0, status=st)
-            if res.success:
-                app._conv_done += 1
-                app.call_from_thread(lambda: app._seg().set_seg(1, cur=app._conv_done))
-
-        app.call_from_thread(
-            lambda: app._seg().set_seg(1, active=False, done=True,
-                                        cur=app._conv_done, tot=app._conv_total)
-        )
+            app.call_from_thread(
+                lambda: app._seg().set_seg(
+                    1, active=False, done=True, cur=app._conv_done, tot=app._conv_total
+                )
+            )
 
         if app._stop_pipeline:
             app.call_from_thread(app._pipeline_finished)
@@ -472,32 +553,47 @@ class TransmutatorApp(App):
         app.call_from_thread(app._show_list)
         load_rows = [
             FileRow(name=f.path.name, category=f.category, status="pending")
-            for f, r in app._results if r.success
+            for f, r in app._results
+            if r.success and f.category in cats_enviar
         ]
         app._file_rows = load_rows
         app._load_total = len(load_rows)
         app._load_done = 0
 
-        app.call_from_thread(lambda: app._fl().set_mode("transfer", "LOCAL", "PLEX"))
-        app.call_from_thread(lambda: app._fl().set_rows(load_rows))
-        app.call_from_thread(
-            lambda: app._seg().set_seg(2, cur=0, tot=app._load_total, active=True)
-        )
-
-        def load_cb(cat, fname, pct):
-            app.call_from_thread(app._on_transfer, cat, fname, pct, "load")
-
-        if Config.PLEX_DESTINATION.exists():
-            LoadPhase.load_all(progress_callback=load_cb, process_handle=app._ph)
-        else:
+        if load_rows and cats_enviar:
             app.call_from_thread(
-                lambda: app.notify("Directori Plex no accessible.", severity="warning")
+                lambda: app._fl().set_mode("transfer", "LOCAL", "PLEX")
+            )
+            app.call_from_thread(lambda: app._fl().set_rows(load_rows))
+            app.call_from_thread(
+                lambda: app._seg().set_seg(2, cur=0, tot=app._load_total, active=True)
             )
 
-        app.call_from_thread(
-            lambda: app._seg().set_seg(2, active=False, done=True,
-                                        cur=app._load_done, tot=app._load_total)
-        )
+            def load_cb(cat, fname, pct):
+                app.call_from_thread(app._on_transfer, cat, fname, pct, "load")
+
+            if Config.PLEX_DESTINATION.exists():
+                LoadPhase.load_all(
+                    progress_callback=load_cb,
+                    process_handle=app._ph,
+                    categories=cats_enviar,
+                )
+            else:
+                app.call_from_thread(
+                    lambda: app.notify(
+                        "Directori Plex no accessible.", severity="warning"
+                    )
+                )
+
+            app.call_from_thread(
+                lambda: app._seg().set_seg(
+                    2, active=False, done=True, cur=app._load_done, tot=app._load_total
+                )
+            )
+        else:
+            app.call_from_thread(
+                lambda: app._seg().set_seg(2, cur=0, tot=0, active=False, done=True)
+            )
 
         # ── Report animation ────────────────────────────────────────
         if app._results:
@@ -508,9 +604,7 @@ class TransmutatorApp(App):
                 for _, cr in app._results
                 if cr.success and cr.original_size and cr.output_size
             )
-            total_secs = sum(
-                cr.duration_seconds or 0 for _, cr in app._results
-            )
+            total_secs = sum(cr.duration_seconds or 0 for _, cr in app._results)
             report_ctx = {
                 "phase": "report",
                 "ok_count": ok,

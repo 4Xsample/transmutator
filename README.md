@@ -9,7 +9,8 @@ Transmutator és un pipeline ETL (Extract, Transform, Load) dissenyat per a la g
 Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contingut de vídeo i àudio provinent de la suite ARR (Sonarr, Radarr, Lidarr) garantint la màxima compatibilitat amb clients lleugers (Apple TV HD) i protegint el seeding de torrents.
 
 ## 🚀 Característiques
-- **TUI Pip-Boy Style:** Interfície retro-futurista amb gradient per-lletra, animacions hacker i barra de progrés segmentada.
+- **Web UI (prioritària):** Interfície web Pip-Boy (React) servida des de Python; accés local i des de la xarxa; opcional launcher en finestra (WebView). Veure [docs/web_ui_architecture.md](docs/web_ui_architecture.md) i [docs/roadmap.md](docs/roadmap.md).
+- **TUI Pip-Boy Style (secundària):** Interfície de terminal retro-futurista amb gradient per-lletra, animacions hacker i barra de progrés segmentada; mantinguda, no deprecada.
 - **Pipeline complet ETL:** Extract (rsync des de torrents), Transform (HandBrake/FFmpeg), Load (rsync a Plex).
 - **Normalització Intel·ligent:**
   - Vídeo: Downscale a 1080p i prioritat a *Fast Decoding*.
@@ -36,6 +37,7 @@ Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contin
   - `report.py`: Generació de reports (TUI + Markdown).
   - `config.py`: Configuració YAML.
 - `tests/`: Proves unitàries (111 tests).
+- `Pipboy-Transfer/`: Interfície web (React/TypeScript) amb estètica Pip-Boy: selecció de categories (Import/Convert/Send), pàgina de procés i report. Veure `Pipboy-Transfer/README.md` per executar-la.
 
 ## 🏃 Instal·lació i Ús
 
@@ -44,6 +46,20 @@ Inspirat en l'estètica **Pip-Boy de Fallout 4**, aquesta eina normalitza contin
 - HandBrakeCLI instal·lat i accessible al PATH
 - FFmpeg instal·lat i accessible al PATH
 - qBittorrent amb WebUI activat (opcional, per auto-tagging)
+
+### Nota per Arch Linux
+
+En Arch, `python` i moltes llibreries canvien ràpid. Per evitar errors estranys:
+
+- usa sempre el `venv` del projecte
+- no confiïs en el Python global del sistema per arrencar Transmutator
+- si alguna cosa “abans funcionava” i ara no, prova primer:
+
+```bash
+./venv/bin/python -m src.main doctor
+```
+
+Aquest comandament comprova l'executable Python real, mòduls clau, eines externes i si el frontend web està buildat.
 
 ### Instal·lació
 
@@ -89,6 +105,12 @@ Executa el script de validació per verificar que tot està configurat correctam
 python -m src.main
 ```
 
+Per executar un diagnòstic més complet de l'entorn:
+
+```bash
+python -m src.main doctor
+```
+
 Per provar la detecció de fitxers:
 
 ```bash
@@ -102,6 +124,32 @@ python -m src.main --tui
 ```
 
 O directament: `python -m src.app`. Tancar amb **q**.
+
+### Web UI (Fase 5)
+
+1. **Construir el frontend** (una vegada):
+   ```bash
+   cd Pipboy-Transfer && npm install && npm run build && cd ..
+   ```
+
+2. **Arrencar el servidor** (API + estàtics). Cal fer servir el **venv** (sense activar-lo no trobarà FastAPI):
+   ```bash
+   source venv/bin/activate
+   python -m src.web_server
+   ```
+   O sense activar el venv (Python del venv directament):
+   ```bash
+   ./venv/bin/python -m src.web_server
+   ```
+   O amb l'entrada segura del projecte:
+   ```bash
+   ./run_web.sh
+   ```
+   Obre el navegador a `http://localhost:1312`. Des d’un altre dispositiu a la xarxa: `http://<IP-del-PC>:1312`.
+
+   Port configurable: `TRANSMUTATOR_PORT=9000 ./venv/bin/python -m src.web_server`
+
+3. **API:** Veure [docs/api.md](docs/api.md) per als endpoints i el contracte.
 
 ## 📋 Estat del Projecte
 
@@ -143,13 +191,12 @@ O directament: `python -m src.app`. Tancar amb **q**.
 - [x] Report i label de progrés amb amplada dinàmica segons terminal
 - [x] 111 tests (pytest)
 
-### ⚠️ Pendents (Fase 4)
-- **Refactorització** de codi i neteja de deute tècnic.
-- **Menú de configuració** interactiu (per no editar fitxers a mà).
-- **Documentació final** de l'usuari.
+### 📅 En curs — Web UI (Fase 5)
+- **API Python** + frontend Pipboy-Transfer; accés local i remot; launcher WebView opcional.
+- Detalls i properes passes: `docs/roadmap.md` i `docs/web_ui_architecture.md`.
 
-### 📅 Properes Fases
-Veure `docs/roadmap.md` per al roadmap complet.
+### ⚠️ En pausa (Fase 4 — TUI)
+- Refactorització, menú de configuració interactiu i documentació final (prioritat inferior).
 
 ## 📝 Llicència
 

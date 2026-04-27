@@ -1,0 +1,357 @@
+{
+  "timestamp": "2026-04-10T11:06:06.122896",
+  "extract_done": 0,
+  "extract_total": 0,
+  "load_done": 0,
+  "load_total": 0,
+  "summary": {
+    "total_results": 20,
+    "successes": 20,
+    "failures": 0,
+    "success_rate": 100.0,
+    "total_original_size": 48837240891,
+    "total_output_size": 13898586860,
+    "total_duration": 18834.957795381546,
+    "space_saved": 34938654031,
+    "compression_ratio": 71.54100721819994
+  },
+  "by_category": {
+    "lidarr": {
+      "successes": 5,
+      "failures": 0,
+      "original_size": 371674806,
+      "output_size": 138773423,
+      "duration_seconds": 13
+    },
+    "radarr": {
+      "successes": 2,
+      "failures": 0,
+      "original_size": 17867304078,
+      "output_size": 8459037084,
+      "duration_seconds": 8640
+    },
+    "tv-sonarr": {
+      "successes": 13,
+      "failures": 0,
+      "original_size": 30598262007,
+      "output_size": 5300776353,
+      "duration_seconds": 10172
+    }
+  },
+  "media_types": {
+    "audio": 5,
+    "video": 15
+  },
+  "qbittorrent": {
+    "enabled": true,
+    "successes": 4,
+    "failures": 0,
+    "actions": [
+      {
+        "success": true,
+        "media_name": "A1 - Get Back.flac",
+        "torrent_name": "beatles-let-it-be-naked-japan-pressing",
+        "torrent_hash": "4b029fe5eba29e63fed94c9179971d7e2bf07312",
+        "source_category": "lidarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Sin piedad (2025) [AMZN WEB-DL 1080p AVC  ES DD+ 5.1 Atmos Subs]HDO.mkv",
+        "torrent_name": "Sin piedad (2025) [AMZN WEB-DL 1080p AVC  ES DD+ 5.1 Atmos Subs]HDO.mkv",
+        "torrent_hash": "011ed408ef3b4e72a4d125bce39c3afee55c2e2b",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "The Smashing Machine (2025) [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_name": "The Smashing Machine (2025) [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+        "torrent_hash": "5c0e3f699d8817ec1394a370217ee999e5d0b612",
+        "source_category": "radarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      },
+      {
+        "success": true,
+        "media_name": "Scream Queens S01E01 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+        "torrent_name": "Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]",
+        "torrent_hash": "8c0c478c45792d96c4e2fef078e0c9954ec69e8f",
+        "source_category": "tv-sonarr",
+        "target_category": "Processat",
+        "state": "stalledUP",
+        "error": ""
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "A1 - Get Back.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/beatles-let-it-be-naked-japan-pressing/A1 - Get Back.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 2.9020192623138428,
+      "original_size": 62868076,
+      "output_size": 26456579,
+      "output_path": "/home/rossell_j/Music/beatles-let-it-be-naked-japan-pressing/A1 - Get Back.mp3"
+    },
+    {
+      "name": "A2 - Dig a Pony.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/beatles-let-it-be-naked-japan-pressing/A2 - Dig a Pony.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.4056735038757324,
+      "original_size": 87127726,
+      "output_size": 28994818,
+      "output_path": "/home/rossell_j/Music/beatles-let-it-be-naked-japan-pressing/A2 - Dig a Pony.mp3"
+    },
+    {
+      "name": "A3 - For You Blue.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/beatles-let-it-be-naked-japan-pressing/A3 - For You Blue.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 2.8760879039764404,
+      "original_size": 60934854,
+      "output_size": 26177157,
+      "output_path": "/home/rossell_j/Music/beatles-let-it-be-naked-japan-pressing/A3 - For You Blue.mp3"
+    },
+    {
+      "name": "A4 - The Long and Winding Road.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/beatles-let-it-be-naked-japan-pressing/A4 - The Long and Winding Road.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.4790287017822266,
+      "original_size": 80203040,
+      "output_size": 28842196,
+      "output_path": "/home/rossell_j/Music/beatles-let-it-be-naked-japan-pressing/A4 - The Long and Winding Road.mp3"
+    },
+    {
+      "name": "A5 - Two of Us.flac",
+      "path": "/home/rossell_j/Videos/TMP/lidarr/beatles-let-it-be-naked-japan-pressing/A5 - Two of Us.flac",
+      "category": "lidarr",
+      "media_type": "audio",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3.2209274768829346,
+      "original_size": 80541110,
+      "output_size": 28302673,
+      "output_path": "/home/rossell_j/Music/beatles-let-it-be-naked-japan-pressing/A5 - Two of Us.mp3"
+    },
+    {
+      "name": "Sin piedad (2025) [AMZN WEB-DL 1080p AVC  ES DD+ 5.1 Atmos Subs]HDO.mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/Sin piedad (2025) [AMZN WEB-DL 1080p AVC  ES DD+ 5.1 Atmos Subs]HDO.mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 3113.410485982895,
+      "original_size": 8302943674,
+      "output_size": 2502847382,
+      "output_path": "/home/rossell_j/Videos/radarr/Sin piedad (2025) [AMZN WEB-DL 1080p AVC  ES DD+ 5.1 Atmos Subs]HDO.mkv"
+    },
+    {
+      "name": "The Smashing Machine (2025) [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/radarr/The Smashing Machine (2025) [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv",
+      "category": "radarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 5527.013030290604,
+      "original_size": 9564360404,
+      "output_size": 5956189702,
+      "output_path": "/home/rossell_j/Videos/radarr/The Smashing Machine (2025) [AMZN WEB-DL 1080p AVC ES DD+ 5.1][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E01 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E01 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 873.7504160404205,
+      "original_size": 2698709018,
+      "output_size": 481868095,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E01 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E02 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E02 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 768.7631072998047,
+      "original_size": 2405257512,
+      "output_size": 392377847,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E02 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E03 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E03 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 800.9073114395142,
+      "original_size": 2286662731,
+      "output_size": 412752172,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E03 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E04 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E04 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 822.9427819252014,
+      "original_size": 2348593359,
+      "output_size": 441097038,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E04 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E05 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E05 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 833.7058303356171,
+      "original_size": 2349373608,
+      "output_size": 461020691,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E05 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E06 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E06 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 776.4117312431335,
+      "original_size": 2262167743,
+      "output_size": 386875704,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E06 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E07 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E07 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 788.4857985973358,
+      "original_size": 2313455500,
+      "output_size": 389314670,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E07 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E08 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E08 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 758.260137796402,
+      "original_size": 2315712363,
+      "output_size": 363921757,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E08 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E09 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E09 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 751.2104060649872,
+      "original_size": 2257527944,
+      "output_size": 393789858,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E09 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E10 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E10 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 754.6042284965515,
+      "original_size": 2298939375,
+      "output_size": 382311959,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E10 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E11 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E11 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 757.1720306873322,
+      "original_size": 2352494634,
+      "output_size": 371069366,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E11 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E12 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E12 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 754.4037535190582,
+      "original_size": 2406370554,
+      "output_size": 393577645,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E12 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    },
+    {
+      "name": "Scream Queens S01E13 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "path": "/home/rossell_j/Videos/TMP/tv-sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E13 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv",
+      "category": "tv-sonarr",
+      "media_type": "video",
+      "success": true,
+      "error": null,
+      "duration_seconds": 738.033008813858,
+      "original_size": 2302997666,
+      "output_size": 430799551,
+      "output_path": "/home/rossell_j/Videos/sonarr/Scream Queens (2015) S01 [PACK][DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO]/Scream Queens S01E13 [DSNP WEB-DL 1080p AVC ES DD 2.0 - EN DD+ 5.1 Subs][HDO].mkv"
+    }
+  ],
+  "runtime": {
+    "pipeline_state": "completed",
+    "last_error": "",
+    "started_at": 1775792494.923466,
+    "finished_at": 1775811966.122838,
+    "selection": {
+      "lidarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "tv-sonarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      },
+      "radarr": {
+        "importar": true,
+        "convertir": true,
+        "enviar": true
+      }
+    }
+  }
+}
